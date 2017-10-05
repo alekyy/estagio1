@@ -1,0 +1,82 @@
+<div id="page-wrapper">
+  <p class="titulo">CRUD Empresa <span ng-click="form = false" class="glyphicon glyphicon-plus-sign"></span></p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CNPJ</th>
+      <th>Produto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in empresas">
+      <th scope="row">{{obj.nomeFantasia}}</th>
+      <td>{{obj.cnpj}}</td>
+      <td>{{obj.produto.nome}}</td>
+      <td>
+        <div class="button-bar">
+          <button class="btn btn-default" ng-click="alterar(obj)"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-default" ng-click="excluir(obj.id)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <div ng-hide="form">
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nome</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.nome">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nome Fantasia</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.nomeFantasia">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">CNPJ</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.cnpj" ui-br-cnpj-mask>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Endereço</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.endereco">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Cep</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.cep" ui-br-cep-mask>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Numero</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.numero" ui-number-mask="0">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Telefone</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="empresa.telefone" ui-br-phone-number>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Produto</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="empresa.produto.id" ng-options="produto.id as produto.nome for produto in produtos">
+        <option value="{{modulo.produto}}">{{produto.nome}}</option>
+      </select>
+      </div>
+    </div>
+      <div class="button-bar">
+        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+      </div>
+  </div>
+</div>

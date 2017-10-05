@@ -1,0 +1,119 @@
+<div id="page-wrapper">
+  <div ng-hide="templateListas">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Ordens de Serviço</h1>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-white" style="border: 1px solid #333 !important;" ng-click="novaOrdem()">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div style="font-size: 20px;">Nova Ordem</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ordensAbertas.length}}</div>
+                            <div>Em Aberto</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer" ng-click="verDetalhes('abertas')">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ordensProgresso.length}}</div>
+                            <div>Em progresso</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer" ng-click="verDetalhes('progresso')">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ordensFinalizadas.length}}</div>
+                            <div>Concluídas</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer" ng-click="verDetalhes('finalizadas')">
+                        <span class="pull-left">Ver Detalhes</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div ng-hide="listaDeOrdens">
+  <span class="glyphicon glyphicon glyphicon-arrow-left" ng-click="verListas()" style="font-size: 30px;"></span>
+    <p class="titulo">{{filtro}}</p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Titulo</th>
+      <th>Tipo de Ordem</th>
+      <th>Prioridade</th>
+      <th>Data de Criação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in listaOrdens">
+      <th scope="row">{{obj.titulo}}</th>
+      <td>{{obj.tipoOrdem}}</td>
+      <td>{{obj.prioridade}}</td>
+      <td>{{obj.dataCriacao}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+<!-- /#page-wrapper -->

@@ -1,0 +1,51 @@
+<div id="page-wrapper">
+  <p class="titulo">Criando nova Ordem</p>
+
+  <div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Titulo</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="ordem.titulo">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Descrição</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="ordem.descricao">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Produto</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="ordem.produto.id" ng-options="produto.id as produto.nome for produto in produtos">
+        <option value="{{modulo.produto}}">{{produto.nome}}</option>
+      </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Tipo de Ordem</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="ordem.tipoOrdem">
+        <option>PROJETO</option>
+        <option>CORRECAO</option>
+      </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Prioridade(Sendo 1 importante e 5 super urgente)</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="ordem.prioridade">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+      </div>
+    </div>
+      <div class="button-bar">
+        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+      </div>
+  </div>
+</div>

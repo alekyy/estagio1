@@ -1,0 +1,43 @@
+<div id="page-wrapper">
+  <p class="titulo">CRUD Produto <span ng-click="form = false" class="glyphicon glyphicon-plus-sign"></span></p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Versão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in produtos">
+      <th scope="row">{{obj.nome}}</th>
+      <td>{{obj.versao}}</td>
+      <td>
+        <div class="button-bar">
+          <button class="btn btn-default" ng-click="alterar(obj)"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-default" ng-click="excluir(obj.id)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <div ng-hide="form">
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nome</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="produto.nome">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Versão</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="produto.versao">
+      </div>
+    </div>
+
+      <div class="button-bar">
+        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+      </div>
+  </div>
+</div>

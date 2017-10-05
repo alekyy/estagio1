@@ -1,0 +1,96 @@
+<div id="page-wrapper">
+  <p class="titulo">CRUD Colaborador <span ng-click="form = false" class="glyphicon glyphicon-plus-sign"></span></p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Usuário</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in colaboradores">
+      <th scope="row">{{obj.nome}}</th>
+      <td>{{obj.cpf}}</td>
+      <td>{{obj.usuario.login}}</td>
+      <td>{{obj.usuario.nivelAcesso}}</td>
+      <td>
+        <div class="button-bar">
+          <button class="btn btn-default" ng-click="alterar(obj)"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-default" ng-click="excluir(obj.id)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <div ng-hide="form">
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nome</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.nome">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">CPF</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.cpf" ui-br-cpf-mask>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Numero</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.numero" ui-number-mask="0">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Endereço</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.endereco">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Cep</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.cep" ui-br-cep-mask>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Telefone</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.telefone" ui-br-phone-number>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Data de Nascimento</label>
+      <div class="col-10">
+        <input class="form-control" type="date" ng-model="colaborador.dataNascimento">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nivel de Acesso</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="colaborador.usuario.nivelAcesso">
+        <option>COLABORADOR</option>
+        <option>ADMIN</option>
+      </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Usuário</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="colaborador.usuario.login">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Senha</label>
+      <div class="col-10">
+        <input class="form-control" type="password" ng-model="colaborador.usuario.senha">
+      </div>
+    </div>
+      <div class="button-bar">
+        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+      </div>
+  </div>
+</div>

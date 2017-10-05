@@ -1,0 +1,53 @@
+<div id="page-wrapper">
+  <p class="titulo">CRUD Item <span ng-click="form = false" class="glyphicon glyphicon-plus-sign"></span></p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Estoque</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in itens">
+      <th scope="row">{{obj.nome}}</th>
+      <td>{{obj.estoque}}</td>
+      <td>{{obj.valor}}</td>
+      <td>
+        <div class="button-bar">
+          <button class="btn btn-default" ng-click="alterar(obj)"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-default" ng-click="excluir(obj.id)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <div ng-hide="form">
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nome</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="item.nome">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Estoque</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="item.estoque" ui-number-mask="0" min="1">
+      </div>
+    </div>
+    <div ng-repeat="(index, peca) in item.pecas">
+      <p>{{peca.nome}} <span ng-click="removerPecas(peca, index)" class="glyphicon glyphicon-trash"></span></p>
+    </div>
+    <button class="btn btn-default" ng-click="mostrarPecas()">Adicionar peça</button>
+
+    <div ng-hide="opcoesPecas" ng-repeat="peca in pecas">
+      <p ng-click="adicionarPecas(peca)">{{peca.nome}}</p>
+    </div>
+
+      <div class="button-bar">
+        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+      </div>
+  </div>
+</div>
