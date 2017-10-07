@@ -8,7 +8,9 @@ angular.module('app').controller('itemController', function ($scope, $http, $roo
   $scope.opcoesPecas = true;
 
   $scope.listarItens = function(){
+    console.log("Listando itens");
     $http.get($rootScope.url+"item/listarTodos").then(function(response){
+      console.log(response.data);
   			$scope.itens = response.data;
   		}, function(erro){
   			console.log(erro);
@@ -24,7 +26,7 @@ angular.module('app').controller('itemController', function ($scope, $http, $roo
   }
 
 $scope.listarPecas();
-$scope.listarItens();
+  $scope.listarItens();
 
   $scope.salvar = function(){
     if($scope.item.id == undefined || $scope.item.id == null){
@@ -52,7 +54,6 @@ $scope.listarItens();
   $scope.excluir = function(id){
       $http.delete($rootScope.url+"item/excluir/"+id).then(function(response){
         $scope.listarItens();
-        $scope.form = false;
       }, function(erro){
     					console.log(erro);
     	});

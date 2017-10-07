@@ -119,7 +119,7 @@ public class OrdemWebService{
 	public Response excluir(@PathParam("idOrdem") Integer idOrdem){
 		try{
 			Ordem obj = (Ordem) persistence.buscarPorId(Ordem.class, idOrdem);
-			persistence.excluir(obj);
+			service.excluirOrdem(obj);
 			return Response.status(200).entity("Excluido com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();

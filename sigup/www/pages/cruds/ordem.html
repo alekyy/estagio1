@@ -1,5 +1,5 @@
 <div id="page-wrapper">
-  <p class="titulo">Criando nova Ordem</p>
+  <p class="titulo">CRUD Ordem</p>
 
   <div>
     <div class="form-group row">
@@ -34,12 +34,8 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Prioridade(Sendo 1 importante e 5 super urgente)</label>
       <div class="col-10">
-        <select class="form-control" ng-model="ordem.prioridade">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <select class="form-control" ng-model="ordem.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades">
+          <option value="{{ordem.prioridade}}">{{prioridade}}</option>
       </select>
       </div>
     </div>

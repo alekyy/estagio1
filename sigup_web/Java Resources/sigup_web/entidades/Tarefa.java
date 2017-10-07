@@ -48,6 +48,10 @@ public class Tarefa {
 	@Column(name = "custo")
 	private Double custo;
 	
+	@ManyToOne
+	@JoinColumn(name = "idresponsavel")
+	private Usuario responsavel;
+	
 	public Tarefa() {
 		dataInicio = new Date();
 		status = Status.ABERTO;
@@ -107,6 +111,13 @@ public class Tarefa {
 	}
 	public Double getCusto() {
 		return custo;
+	}
+	
+	public void setResponsavel(Usuario responsavel) {
+		this.responsavel = responsavel;
+	}
+	public Usuario getResponsavel() {
+		return responsavel;
 	}
 
 }

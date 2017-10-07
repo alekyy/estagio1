@@ -1,53 +1,37 @@
-angular.module('app').controller('servicoController', function ($scope, $http, $rootScope){
+angular.module('app').controller('servicoController', function ($scope, $http, $rootScope, $location){
 
   $scope.servico = {};
-  $scope.servicos = [];
-  $scope.form = true;
+  $scope.prioridades = [1,2,3,4,5];
 
-  $scope.listarServicos = function(){
-    $http.get($rootScope.url+"servico/listarTodos").then(function(response){
-  			$scope.servicos = response.data;
-  		}, function(erro){
-  			console.log(erro);
-  		});
-  }
-
-$scope.listarServicos();
+  if($rootScope.servico != undefined)
+    $scope.servico = $rootScope.servico;
 
   $scope.salvar = function(){
+    if($scope.servico.ordem == undefined || $scope.servico.ordem == null)
+      $scope.servico.ordem = $rootScope.ordem;
     if($scope.servico.id == undefined || $scope.servico.id == null){
       $http.post($rootScope.url+"servico/inserir", $scope.servico).then(function(response){
-        $scope.listarServicos();
-        $scope.cancelar();
+        $location.path('/servicosLista');
 				}, function(erro){
 					console.log(erro);
 				});
     }else{
-      $http.put($rootScope.url+"servico/alterar", $scope.servico).then(function(response){
-        $scope.listarServicos();
-        $scope.cancelar();
+    $http.put($rootScope.url+"servico/alterar", $scope.servico).then(function(response){
+      $rootScope.servico = undefined;
+      $location.path('/servicosLista');
         }, function(erro){
           console.log(erro);
         });
     }
   }
 
-  $scope.alterar = function(obj){
-    $scope.servico = angular.copy(obj);
-    $scope.form = false;
-  }
-
-  $scope.excluir = function(id){
-      $http.delete($rootScope.url+"servico/excluir/"+id).then(function(response){
-        $scope.listarServicos();
-      }, function(erro){
-    					console.log(erro);
-    	});
-  }
-
   $scope.cancelar = function(){
-    $scope.servico = {};
-    $scope.form = true;
+    if($rootScope.servico == undefined || $rootScope.servico == null)
+      $location.path('/');
+    else {
+      $rootScope.servico = undefined;
+      $location.path('/servicosLista');
+    }
   }
 
 });

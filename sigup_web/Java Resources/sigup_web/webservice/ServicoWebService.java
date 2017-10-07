@@ -14,19 +14,21 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import sigup_web.entidades.Servico;
+import sigup_web.service.ServicoService;
 import sigup_web.util.GenericPersistence;
 
 @Path("/servico")
 public class ServicoWebService{
 	
 	GenericPersistence persistence = new GenericPersistence();
+	ServicoService service = new ServicoService();
 	
 	@Path("/inserir")
 	@POST
 	@Consumes("application/json")
 	public Response inserir(Servico obj){
 		try{
-			persistence.inserir(obj);
+			service.criarServico(obj);
 			return Response.status(200).entity("Salvo com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -38,6 +40,19 @@ public class ServicoWebService{
 	@PUT
 	@Consumes("application/json")
 	public Response alterar(Servico obj){
+		try{
+			persistence.alterar(obj);
+			return Response.status(200).entity("Atualizado com sucesso").build();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@Path("/finalizar")
+	@PUT
+	@Consumes("application/json")
+	public Response finalizar(Servico obj){
 		try{
 			persistence.alterar(obj);
 			return Response.status(200).entity("Atualizado com sucesso").build();
@@ -60,12 +75,51 @@ public class ServicoWebService{
 		}
 	}
 	
+	@Path("/listarAbertos")
+	@GET
+	@Produces("application/json")
+	public List<Servico> listarAbertos(){
+		try{
+			List<Servico>listaServico = persistence.listarComCondicao(Servico.class, "status = 'ABERTO'");
+			return listaServico;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@Path("/listarProgresso")
+	@GET
+	@Produces("application/json")
+	public List<Servico> listarProgresso(){
+		try{
+			List<Servico>listaServico = persistence.listarComCondicao(Servico.class, "status = 'EM_PROGRESSO'");
+			return listaServico;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@Path("/listarFinalizados")
+	@GET
+	@Produces("application/json")
+	public List<Servico> listarFinalizadas(){
+		try{
+			List<Servico>listaServico = persistence.listarComCondicao(Servico.class, "status = 'FINALIZADO'");
+			return listaServico;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
 	@Path("/excluir/{idServico}")
 	@DELETE
 	public Response excluir(@PathParam("idServico") Integer idServico){
 		try{
 			Servico obj = (Servico) persistence.buscarPorId(Servico.class, idServico);
-			persistence.excluir(obj);
+			service.excluirOrdem(obj);
 			return Response.status(200).entity("Excluido com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();

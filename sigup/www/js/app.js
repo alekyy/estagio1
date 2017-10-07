@@ -59,11 +59,6 @@ app.config(function($routeProvider, $locationProvider){
 		controller: 'servicoController'
 	});
 
-	$routeProvider.when('/tarefa', {
-		templateUrl: 'pages/cruds/tarefa.html',
-		controller: 'tarefaController'
-	});
-
 	$routeProvider.when('/compra', {
 		templateUrl: 'pages/movimentos/compra.html',
 		controller: 'compraController'
@@ -77,6 +72,11 @@ app.config(function($routeProvider, $locationProvider){
 	$routeProvider.when('/item', {
 		templateUrl: 'pages/cruds/item.html',
 		controller: 'itemController'
+	});
+
+	$routeProvider.when('/servicosLista', {
+		templateUrl: 'pages/servicosLista.html',
+		controller: 'servicosListaController'
 	});
 
 	$routeProvider.otherwise({redirectTo: '/'});

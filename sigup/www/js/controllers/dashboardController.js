@@ -7,6 +7,8 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
   $scope.listaDeOrdens = true;
   $scope.filtro = "";
   $scope.listaOrdens = [];
+  $scope.usuarioLogado = $rootScope.usuarioLogado.usuario;
+  $rootScope.ordem = undefined;
 
       $scope.novaOrdem = function(){
         $location.path('/ordem');
@@ -73,6 +75,32 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
       $scope.verListas = function(){
         $scope.templateListas = false;
         $scope.listaDeOrdens = true;
+      }
+
+      $scope.alterar = function(obj){
+        $location.path('/ordem');
+        $rootScope.ordem = obj;
+      }
+
+      $scope.excluir = function(id){
+          $http.delete($rootScope.url+"ordem/excluir/"+id).then(function(response){
+            $location.path('?');
+          }, function(erro){
+        			console.log(erro);
+        	});
+      }
+
+      $scope.abrirServico = function(obj){
+        if(obj.status == 'ABERTO'){
+          obj.dataCriacao = (new Date(obj.dataCriacao.split('/').splice(1, 1)[0]+" "+obj.dataCriacao.split('/').splice(0, 1)[0]+" "+obj.dataCriacao.split('/').splice(2, 2)[0])).getTime();
+          $rootScope.ordem = obj;
+          $location.path('/servico');
+        }
+      }
+
+      $scope.visualizar = function(obj){
+        $rootScope.ordem = $scope.ordem;
+        $location.path('/ordemVisao');
       }
 
       $scope.listarOrdensEmAberto();
