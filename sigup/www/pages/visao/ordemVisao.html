@@ -1,0 +1,53 @@
+<div id="page-wrapper">
+  <div>
+    <div class="row">
+        <div class="col-lg-12">
+          <span class="glyphicon glyphicon glyphicon-arrow-left" ng-click="voltar()" style="font-size: 30px;"></span>
+            <h1 class="page-header">Ordem</h1>
+        </div>
+    </div>
+            <div class="panel panel-white" style="border: 1px solid #333 !important;">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-9 text-left">
+                            <div>Titulo: {{ordem.titulo}}</div>
+                            <div>Descricao: {{ordem.descricao}}</div>
+                        </div>
+                        <div class="col-xs-9 text-center">
+                            <div>Tipo de Ordem: {{ordem.tipoOrdem}}</div>
+                            <div>Prioridade: {{ordem.prioridade}}</div>
+                            <div>Status: {{ordem.status}}</div>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div>Data Criação: {{ordem.dataCriacao}}</div>
+                            <div>Data Finalização: {{ordem.dataFinalizacao}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Serviço referente a Ordem</h1>
+                </div>
+            </div>
+            <div class="panel {{panel}}" ng-click="visualizar()">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-9 text-left">
+                            <div>Titulo: {{servico.titulo}}</div>
+                            <div>Descricao: {{servico.descricao}}</div>
+                        </div>
+                        <div class="col-xs-9 text-center">
+                            <div>Prioridade: {{servico.prioridade}}</div>
+                            <div>Status: {{servico.status}}</div>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div>Data Inicio: {{ordem.dataInicio}}</div>
+                            <div>Data Finalização: {{ordem.dataFinalizacao}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  </div>
+</div>
+<!-- /#page-wrapper -->

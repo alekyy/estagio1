@@ -61,6 +61,19 @@ public class TarefaWebService {
 		}
 	}
 	
+	@Path("/buscarTarefas/{idServico}")
+	@GET
+	@Produces("application/json")
+	public List<Tarefa> buscarTarefas(@PathParam("idServico") Integer idServico){
+		try{
+			List<Tarefa>listaTarefa = persistence.listarComCondicao(Tarefa.class, "servico.id = " + idServico);
+			return listaTarefa;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
 	@Path("/excluir/{idTarefa}")
 	@DELETE
 	public Response excluir(@PathParam("idTarefa") Integer idTarefa){

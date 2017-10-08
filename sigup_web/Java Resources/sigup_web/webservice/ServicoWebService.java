@@ -114,6 +114,18 @@ public class ServicoWebService{
 		}
 	}
 	
+	@Path("/buscarServico/{idOrdem}")
+	@GET
+	@Produces("application/json")
+	public Response buscarServico(@PathParam("idOrdem") Integer idOrdem){
+		try{
+			return Response.status(200).entity(persistence.listarComCondicao(Servico.class, "ordem.id = " + idOrdem).iterator().next()).build();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
 	@Path("/excluir/{idServico}")
 	@DELETE
 	public Response excluir(@PathParam("idServico") Integer idServico){

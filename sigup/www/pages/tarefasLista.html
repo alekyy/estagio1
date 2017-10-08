@@ -2,23 +2,8 @@
   <div ng-hide="templateListas">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Ordens de Serviço</h1>
+            <h1 class="page-header">Selecione uma Tarefa</h1>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-white" style="border: 1px solid #333 !important;" ng-click="novaOrdem()">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-plus fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div style="font-size: 20px;">Nova Ordem</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
@@ -30,7 +15,7 @@
                             <i class="fa fa-comments fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ordensAbertas.length}}</div>
+                            <div class="huge">{{tarefasAbertas.length}}</div>
                             <div>Em Aberto</div>
                         </div>
                     </div>
@@ -52,7 +37,7 @@
                             <i class="fa fa-shopping-cart fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ordensProgresso.length}}</div>
+                            <div class="huge">{{tarefasProgresso.length}}</div>
                             <div>Em progresso</div>
                         </div>
                     </div>
@@ -74,7 +59,7 @@
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ordensFinalizadas.length}}</div>
+                            <div class="huge">{{tarefasFinalizadas.length}}</div>
                             <div>Concluídas</div>
                         </div>
                     </div>
@@ -92,30 +77,26 @@
     </div>
 </div>
 
-<div ng-hide="listaDeOrdens">
+<div ng-hide="listaDeServicos">
   <span class="glyphicon glyphicon glyphicon-arrow-left" ng-click="verListas()" style="font-size: 30px;"></span>
     <p class="titulo">{{filtro}}</p>
   <table class="table">
   <thead>
     <tr>
       <th>Titulo</th>
-      <th>Tipo de Ordem</th>
       <th>Prioridade</th>
       <th>Data de Criação</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="obj in listaOrdens">
+    <tr ng-repeat="obj in listaTarefas">
       <th scope="row">{{obj.titulo}}</th>
-      <td>{{obj.tipoOrdem}}</td>
       <td>{{obj.prioridade}}</td>
-      <td>{{obj.dataCriacao}}</td>
+      <td>{{obj.dataInicio}}</td>
       <td>
         <div class="button-bar">
-          <button class="btn btn-default" ng-click="visualizar(obj)" ng-show="obj.status != 'ABERTO'"><span class="glyphicon glyphicon-eye-open"></span></button>
-          <button class="btn btn-default" ng-click="alterar(obj)" ng-hide="usuarioLogado.id != obj.usuario.id"><span class="glyphicon glyphicon-pencil"></span></button>
-          <button class="btn btn-default" ng-click="excluir(obj.id)" ng-hide="obj.status != 'ABERTO' && usuarioLogado.nivelAcesso != 'ADMIN'"><span class="glyphicon glyphicon-trash"></span></button>
-          <button class="btn btn-default" ng-click="abrirServico(obj)" ng-show="usuarioLogado.nivelAcesso != 'CLIENTE' && obj.status == 'ABERTO'" > Abrir Serviço</button>
+          <button class="btn btn-default" ng-click="alterar(obj)" ng-hide="usuarioLogado.id != obj.usuario.id && usuarioLogado.nivelAcesso != 'ADMIN'"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-default" ng-click="excluir(obj.id)"><span class="glyphicon glyphicon-trash"></span></button>
         </div>
       </td>
     </tr>

@@ -1,4 +1,4 @@
-angular.module('app').controller('dashboardController', function ($scope, $location, $http, $rootScope){
+angular.module('app').controller('tarefaVisaoController', function ($scope, $location, $http, $rootScope){
 
   $scope.ordensAbertas = [];
   $scope.ordensProgresso = [];
@@ -99,7 +99,7 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
       }
 
       $scope.visualizar = function(obj){
-        $rootScope.ordem = obj;
+        $rootScope.ordem = $scope.ordem;
         $location.path('/ordemVisao');
       }
 

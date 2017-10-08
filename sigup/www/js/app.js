@@ -79,6 +79,21 @@ app.config(function($routeProvider, $locationProvider){
 		controller: 'servicosListaController'
 	});
 
+	$routeProvider.when('/ordemVisao', {
+		templateUrl: 'pages/visao/ordemVisao.html',
+		controller: 'ordemVisaoController'
+	});
+
+	$routeProvider.when('/servicoVisao', {
+		templateUrl: 'pages/visao/servicoVisao.html',
+		controller: 'servicoVisaoController'
+	});
+
+	$routeProvider.when('/tarefaVisao', {
+		templateUrl: 'pages/visao/tarefaVisao.html',
+		controller: 'tarefaVisaoController'
+	});
+
 	$routeProvider.otherwise({redirectTo: '/'});
 });
 
