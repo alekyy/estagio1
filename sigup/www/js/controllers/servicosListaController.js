@@ -86,8 +86,8 @@ angular.module('app').controller('servicosListaController', function ($scope, $l
       }
 
       $scope.gerarTarefas = function(obj){
-          $rootScope.ordem = obj;
-          $location.path('/servicoVisao');
+          $rootScope.servico = obj;
+          $location.path('/tarefa');
       }
 
       $scope.listarServicosEmAberto();

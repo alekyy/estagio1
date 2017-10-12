@@ -29,6 +29,7 @@
       </div>
     </div>
     <div class="form-group row">
+      <label class="col-2 col-form-label">Responsavel</label>
       <select class="form-control" ng-model="tarefa.responsavel.id" ng-options="colaborador.usuario.id as colaborador.nome for colaborador in colaboradores">
         <option value="{{colaborador.usuario}}">{{colaborador.nome}}</option>
       </select>

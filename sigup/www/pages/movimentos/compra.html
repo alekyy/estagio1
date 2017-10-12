@@ -1,65 +1,54 @@
 <div id="page-wrapper">
-  <p class="titulo">Compras <span ng-click="formButtons = !formButtons" class="glyphicon glyphicon-plus-sign"></span></p>
-  <div ng-show="formButtons" class="button-bar">
-    <button class="btn btn-default" ng-click="compraA()">Nova conta</button>
-    <button class="btn btn-default" ng-click="compraB()">Compra de Peça</button>
-  </div>
+  <p class="titulo">Compras <span ng-click="form = !form" class="glyphicon glyphicon-plus-sign"></span></p>
   <table class="table">
   <thead>
     <tr>
+      <th>Descrição</th>
       <th>Data da Compra</th>
       <th>Valor</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="obj in compras">
-      <th scope="row">{{obj.dataCompra}}</th>
+      <th scope="row">{{obj.descricao}}</td>
+      <td>{{obj.dataCompra}}</td>
       <td>{{obj.valor}}</td>
-      <td>
-        <div class="button-bar">
-          <button class="btn btn-default" ng-click="alterar(obj)"><span class="glyphicon glyphicon-pencil"></span></button>
-          <button class="btn btn-default" ng-click="excluir(obj.id)"><span class="glyphicon glyphicon-trash" disabled></span></button>
-        </div>
-      </td>
     </tr>
   </tbody>
 </table>
 
   <div ng-hide="form">
-    <div ng-show="compraAvulsa">
-      <p class="titulo">Nova Conta</p>
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Descrição</label>
-      <div class="col-10">
-        <input class="form-control" type="text" ng-model="compra.descricao">
-      </div>
+
+  <p class="titulo">Compra de Peça</p>
+  <div ng-repeat="(index, pecaCompra) in compra.pecaCompra">
+    <p>{{pecaCompra.peca.nome}}, Quantidade: {{pecaCompra.quantidade}} <span ng-click="removerPecas(pecaCompra, index)" class="glyphicon glyphicon-trash"></span></p>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Descrição</label>
+    <div class="col-10">
+      <input class="form-control" type="text" ng-model="compra.descricao">
     </div>
-    <div class="form-group row">
-      <label class="col-2 col-form-label">Valor</label>
-      <div class="col-10">
-        <input class="form-control" type="text" ng-model="compra.valor" ui-money-mask>
-      </div>
-    </div>
-    </div>
-    <div ng-show="compraPeca">
-      <p class="titulo">Compra de Peça</p>
+  </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Peças</label>
       <div class="col-10">
-        <select class="form-control" ng-model="compra.peca.id" ng-options="peca.id as peca.nome for peca in pecas">
-        <option value="{{compra.peca}}">{{peca.nome}}</option>
+        <select class="form-control" ng-model="pecaCompra.peca" ng-options="peca as peca.nome for peca in pecas">
+        <option value="{{pecaCompra.peca}}">{{peca.nome}}</option>
       </select>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Quantidade de Peças</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="compra.quantidade">
+        <input class="form-control" type="text" ng-model="pecaCompra.quantidade">
       </div>
     </div>
-  </div>
+
+    <button class="btn btn-default" ng-click="adicionarPeca()">Adicionar peça</button>
+
   <div class="button-bar">
-    <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+    <button class="btn btn-default" ng-click="salvar()">Finalizar Compra</button>
     <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
   </div>
 </div>

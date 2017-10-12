@@ -24,7 +24,7 @@ public class OrdemPersistence extends GenericPersistence {
 	}
 	
 	
-	public void excluirOrdem(Object objeto, Servico servico, List<Tarefa> tarefas) {
+	public void excluirOrdem(Ordem ordem, Servico servico, List<Tarefa> tarefas) {
         try {
         	entityManager = ConexaoBanco.getConexao().getEm();
 			entityManager.getTransaction().begin();
@@ -35,10 +35,7 @@ public class OrdemPersistence extends GenericPersistence {
 			}
 			
 			entityManager.remove(entityManager.merge(servico));
-			
-            Method getChave = objeto.getClass().getMethod("getId", new Class[0]);
-            objeto = entityManager.find(objeto.getClass(), getChave.invoke(objeto, new Object[0]));
-            entityManager.remove(objeto);
+			entityManager.remove(entityManager.merge(ordem));
             entityManager.getTransaction().commit();
             
         } catch (Exception e) {

@@ -1,10 +1,14 @@
 package sigup_web.service;
 
 import java.util.Date;
+import java.util.List;
 
 import sigup_web.entidades.Compra;
 import sigup_web.entidades.ContasPagar;
+import sigup_web.entidades.ItemTarefa;
 import sigup_web.entidades.Peca;
+import sigup_web.entidades.PecaCompra;
+import sigup_web.entidades.Tarefa;
 import sigup_web.persistence.CompraPersistence;
 
 public class CompraService
@@ -16,44 +20,24 @@ public class CompraService
 		super();
 	}
 	
-	public void verificarCompra(Compra compra, Boolean novaCompra) throws Exception{
-		Peca peca = new Peca();
-		if(compra.getDescricao() != null)
-			compra.setDataCompra(new Date());
-		else{
-			peca = (Peca) persistence.buscarPorId(Peca.class, compra.getPeca().getId());
-			compra.setValor(peca.getValor() * compra.getQuantidade());
-			compra.setDataCompra(new Date());
-		}
-		
-		if(novaCompra)
-			gerarContasPagar(compra, peca);
-		else
-			alterarContasPagar(compra, peca);
+	public void verificarCompra(Compra compra) throws Exception{
+		Double valor = 0.0;
+		for(PecaCompra pecaCompra : compra.getPecaCompra()){
+			valor += pecaCompra.getPeca().getValor() * pecaCompra.getQuantidade();
+		}	
+		compra.setDataCompra(new Date());
+		compra.setValor(valor);
+		gerarContasPagar(compra);
 	}
 	
-	private void gerarContasPagar(Compra compra, Peca peca) throws Exception{
+	private void gerarContasPagar(Compra compra) throws Exception{
 		ContasPagar conta = new ContasPagar();
 		conta.setDataLancamento(compra.getDataCompra());
 		conta.setValor(compra.getValor());
 		
-		persistence.gerarContas(compra, conta, peca);
+		persistence.gerarContas(compra, conta);
 	}
-	
-	private void alterarContasPagar(Compra compra, Peca peca) throws Exception{
-		Integer quantidadeAntigaPecas = 0;
-		ContasPagar conta = (ContasPagar) persistence.listarComCondicao(ContasPagar.class, "compra.id = " + compra.getId()).iterator().next();
-		
-		if(compra.getPeca() != null){
-			Compra compraAntiga = (Compra) persistence.listarComCondicao(Compra.class, "id = " + compra.getId()).iterator().next();
-			quantidadeAntigaPecas = compraAntiga.getQuantidade();
-		}
-		
-		conta.setDataLancamento(compra.getDataCompra());
-		conta.setValor(compra.getValor());
-		
-		persistence.alterarContas(compra, conta, peca, quantidadeAntigaPecas);
-	}
+
 
 }
 

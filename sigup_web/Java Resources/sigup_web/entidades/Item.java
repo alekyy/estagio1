@@ -5,6 +5,7 @@
  */
 package sigup_web.entidades;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,40 +15,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "item", schema = "sigup")
-public class Item{
+public class Item implements Serializable{
 
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "nome")
     private String nome;
+    @Column(name = "descricao")
+    private String descricao;
     @Column(name = "estoque")
     private Integer estoque;
     @Column(name = "valor")
     private Double valor;
     @ManyToMany
-    @JoinColumn(name = "idpeca")
-    private List<Peca> pecas;
-
-    public String getNome() {
-        return nome;
-    }
+    @JoinColumn(name = "idItemPeca")
+    private List<ItemPeca> itemPeca;
 
     public Integer getId() {
         return id;
     }
 
-    public List<Peca> getPecas() {
-        return pecas;
+    public List<ItemPeca> getItemPecas() {
+        return itemPeca;
     }
 
-    public void setPecas(List<Peca> pecas) {
-        this.pecas = pecas;
+    public void setPecas(List<ItemPeca> itemPeca) {
+        this.itemPeca = itemPeca;
     }
 
     public void setId(Integer id) {
@@ -57,7 +56,19 @@ public class Item{
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public String getNome() {
+        return nome;
+    }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    public String getDescricao() {
+        return descricao;
+    }
+    
     public Integer getEstoque() {
         return estoque;
     }

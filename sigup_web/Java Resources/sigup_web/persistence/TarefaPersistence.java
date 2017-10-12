@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import sigup_web.entidades.Compra;
 import sigup_web.entidades.ContasPagar;
+import sigup_web.entidades.ItemTarefa;
 import sigup_web.entidades.Ordem;
 import sigup_web.entidades.Peca;
 import sigup_web.entidades.Servico;
@@ -15,21 +16,21 @@ import sigup_web.entidades.Tarefa;
 import sigup_web.util.ConexaoBanco;
 import sigup_web.util.GenericPersistence;
 
-public class ServicoPersistence extends GenericPersistence {
+public class TarefaPersistence extends GenericPersistence {
 
 	EntityManager entityManager;
 
-	public ServicoPersistence() {
+	public TarefaPersistence() {
 		super();
 	}
 	
 	
-	public void criarServico(Servico servico, Ordem ordem){
+	public void criarTarefa(Tarefa tarefa, Servico servico){
 		try {
 			entityManager = ConexaoBanco.getConexao().getEm();
 			entityManager.getTransaction().begin();
-			entityManager.persist(servico);
-			entityManager.merge(ordem);
+			entityManager.persist(tarefa);
+			entityManager.merge(servico);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,19 +40,18 @@ public class ServicoPersistence extends GenericPersistence {
 		}
 	}
 	
-	public void excluirServico(Servico servico, List<Tarefa> tarefas) {
+	public void excluirTarefa(Tarefa tarefa, List<ItemTarefa> itensTarefa) {
         try {
         	entityManager = ConexaoBanco.getConexao().getEm();
 			entityManager.getTransaction().begin();
 			
-			if(tarefas.size() > 0){
-				for(Tarefa tarefa : tarefas)
-					entityManager.remove(entityManager.merge(tarefa));
+			if(itensTarefa.size() > 0){
+				for(ItemTarefa itemTarefa : itensTarefa)
+					entityManager.remove(entityManager.merge(itemTarefa));
 			}
 			
-			entityManager.remove(entityManager.merge(servico));
-            entityManager.getTransaction().commit();
-            
+			entityManager.remove(entityManager.merge(tarefa));
+            entityManager.getTransaction().commit();     
         } catch (Exception e) {
             e.printStackTrace();
             entityManager.getTransaction().rollback();

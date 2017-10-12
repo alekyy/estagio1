@@ -1,12 +1,11 @@
 angular.module('app').controller('compraController', function ($scope, $http, $rootScope){
 
   $scope.compra = {};
+  $scope.compra.pecaCompra = [];
   $scope.compras = [];
+  $scope.pecaCompra = {};
   $scope.pecas = [];
   $scope.form = true;
-  $scope.formButtons = false;
-  $scope.compraAvulsa = false;
-  $scope.compraPeca = false;
 
   $scope.listarCompras = function(){
     $http.get($rootScope.url+"compra/listarTodos").then(function(response){
@@ -52,46 +51,18 @@ $scope.listarCompras();
     }
   }
 
-  $scope.alterar = function(obj){
-    $scope.compra = angular.copy(obj);
-    $scope.form = false;
-    if($scope.compra.descricao != undefined)
-      $scope.compraA();
-    else
-      $scope.compraB();
+  $scope.adicionarPeca = function(){
+    $scope.compra.pecaCompra.push($scope.pecaCompra);
+    $scope.pecaCompra = undefined;
   }
 
-  $scope.excluir = function(id){
-      $http.delete($rootScope.url+"compra/excluir/"+id).then(function(response){
-        $scope.listarCompras();
-      }, function(erro){
-    					console.log(erro);
-    	});
-  }
-
-  $scope.compraA = function(){
-    $scope.form = false;
-    $scope.compraAvulsa = true;
-    $scope.compraPeca = false;
-
-    $scope.compra.peca = null;
-    $scope.compra.quantidade = null;
-  }
-
-  $scope.compraB = function(){
-    $scope.form = false;
-    $scope.compraAvulsa = false;
-    $scope.compraPeca = true;
-
-    $scope.compra.descricao = null;
-    $scope.compra.valor = null;
+  $scope.removerPecas = function(peca, index){
+    $scope.compra.pecaCompra.splice(index, 1);
   }
 
   $scope.cancelar = function(){
     $scope.compra = {};
     $scope.form = true;
-    $scope.compraAvulsa = false;
-    $scope.compraPeca = false;
   }
 
 });

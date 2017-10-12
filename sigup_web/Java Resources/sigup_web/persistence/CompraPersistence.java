@@ -8,7 +8,10 @@ import javax.persistence.Query;
 
 import sigup_web.entidades.Compra;
 import sigup_web.entidades.ContasPagar;
+import sigup_web.entidades.ItemTarefa;
 import sigup_web.entidades.Peca;
+import sigup_web.entidades.PecaCompra;
+import sigup_web.entidades.Tarefa;
 import sigup_web.util.ConexaoBanco;
 import sigup_web.util.GenericPersistence;
 
@@ -21,16 +24,17 @@ public class CompraPersistence extends GenericPersistence {
 	}
 	
 	
-	public void gerarContas(Compra compra, ContasPagar conta, Peca peca){
+	public void gerarContas(Compra compra, ContasPagar conta){
 		try {
 			entityManager = ConexaoBanco.getConexao().getEm();
 			entityManager.getTransaction().begin();
 			entityManager.persist(compra);
 			conta.setCompra(compra);
 			entityManager.persist(conta);
-			if(peca.getEstoque() != null){
-				peca.setEstoque(peca.getEstoque() + compra.getQuantidade());
-				entityManager.merge(peca);
+			for(PecaCompra pecaCompra : compra.getPecaCompra()){
+				pecaCompra.getPeca().setEstoque(pecaCompra.getPeca().getEstoque() + pecaCompra.getQuantidade());
+				entityManager.merge(pecaCompra.getPeca());
+				entityManager.persist(pecaCompra);
 			}
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -41,23 +45,5 @@ public class CompraPersistence extends GenericPersistence {
 		}
 	}
 	
-	public void alterarContas(Compra compra, ContasPagar conta, Peca peca, Integer quantidadeAntigaPecas){
-		try {
-			entityManager = ConexaoBanco.getConexao().getEm();
-			entityManager.getTransaction().begin();
-			entityManager.merge(compra);
-			entityManager.merge(conta);
-			if(peca.getEstoque() != null){
-				peca.setEstoque((peca.getEstoque() - quantidadeAntigaPecas)+ compra.getQuantidade());
-				entityManager.merge(peca);
-			}
-			entityManager.getTransaction().commit();
-		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
-			e.printStackTrace();
-		} finally {
-			entityManager.close();
-		}
-	}
 
 }

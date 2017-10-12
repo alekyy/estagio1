@@ -16,6 +16,7 @@ angular.module('app').controller('servicoController', function ($scope, $http, $
 					console.log(erro);
 				});
     }else{
+    $scope.servico.dataInicio = (new Date($scope.servico.dataInicio.split('/').splice(1, 1)[0]+" "+$scope.servico.dataInicio.split('/').splice(0, 1)[0]+" "+$scope.servico.dataInicio.split('/').splice(2, 2)[0])).getTime();
     $http.put($rootScope.url+"servico/alterar", $scope.servico).then(function(response){
       $rootScope.servico = undefined;
       $location.path('/servicosLista');

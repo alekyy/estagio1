@@ -1,5 +1,6 @@
 package sigup_web.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,8 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente", schema = "sigup")
-public class Cliente {
+public class Cliente implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idcliente")
@@ -34,10 +36,6 @@ public class Cliente {
 	@ManyToOne
 	@JoinColumn(name = "idempresa")
 	private Empresa empresa;
-	
-	@ManyToOne
-	@JoinColumn(name = "idcidade")
-	private Cidade cidade;
 	
 	public Integer getId() {
 		return id;
@@ -68,11 +66,5 @@ public class Cliente {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Cidade getCidade() {
-		return cidade;
-	}
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
 	}
 }

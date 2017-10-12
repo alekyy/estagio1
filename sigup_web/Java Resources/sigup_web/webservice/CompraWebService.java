@@ -28,7 +28,7 @@ public class CompraWebService{
 	@Consumes("application/json")
 	public Response inserir(Compra obj){
 		try{
-			service.verificarCompra(obj, true);
+			service.verificarCompra(obj);
 			return Response.status(200).entity("Salvo com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -36,18 +36,6 @@ public class CompraWebService{
 		}
 	}
 	
-	@Path("/alterar")
-	@PUT
-	@Consumes("application/json")
-	public Response alterar(Compra obj){
-		try{
-			service.verificarCompra(obj, false);
-			return Response.status(200).entity("Atualizado com sucesso").build();
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new WebApplicationException(500);
-		}
-	}
 	
 	@Path("/listarTodos")
 	@GET
@@ -56,19 +44,6 @@ public class CompraWebService{
 		try{
 			List<Compra>listaCompra = persistence.listar(Compra.class);
 			return listaCompra;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new WebApplicationException(500);
-		}
-	}
-	
-	@Path("/excluir/{idCompra}")
-	@DELETE
-	public Response excluir(@PathParam("idCompra") Integer idCompra){
-		try{
-			Compra obj = (Compra) persistence.buscarPorId(Compra.class, idCompra);
-			persistence.excluir(obj);
-			return Response.status(200).entity("Excluido com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new WebApplicationException(500);

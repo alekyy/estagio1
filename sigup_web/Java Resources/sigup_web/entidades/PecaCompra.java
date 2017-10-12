@@ -6,32 +6,32 @@
 package sigup_web.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "peca", schema = "sigup")
-public class Peca implements Serializable{
+@Table(name = "pecaCompra", schema = "sigup")
+public class PecaCompra implements Serializable{
 
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "nome")
-    private String nome;
-    @Column(name = "estoque")
-    private Integer estoque;
-    @Column(name = "valor")
-    private Double valor;
-
-    public String getNome() {
-        return nome;
-    }
+    @Column(name = "quantidade")
+    private Integer quantidade;
+    @ManyToOne
+    @JoinColumn(name = "idpeca")
+    private Peca peca;
 
     public Integer getId() {
         return id;
@@ -41,24 +41,20 @@ public class Peca implements Serializable{
         this.id = id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
-    public Integer getEstoque() {
-        return estoque;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
-
-    public void setEstoque(Integer estoque) {
-        this.estoque = estoque;
+    
+    public Peca getPeca() {
+        return peca;
     }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
+    
+    public void setPeca(Peca peca) {
+        this.peca = peca;
     }
 
 }

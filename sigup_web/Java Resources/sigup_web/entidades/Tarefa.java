@@ -1,5 +1,6 @@
 package sigup_web.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tarefa", schema = "sigup")
-public class Tarefa {
+public class Tarefa implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idtarefa")
@@ -48,12 +51,11 @@ public class Tarefa {
 	@Column(name = "custo")
 	private Double custo;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "idresponsavel")
 	private Usuario responsavel;
 	
 	public Tarefa() {
-		dataInicio = new Date();
 		status = Status.ABERTO;
 	}
 	

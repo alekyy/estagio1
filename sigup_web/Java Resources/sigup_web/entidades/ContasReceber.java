@@ -5,6 +5,7 @@
  */
 package sigup_web.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,8 +18,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ContasReceber {
+public class ContasReceber implements Serializable{
 
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -29,8 +31,8 @@ public class ContasReceber {
     @Column(name = "valor")
     private Double valor;
     @OneToOne
-    @JoinColumn(name = "idordem")
-    private Ordem ordem;
+    @JoinColumn(name = "idservico")
+    private Servico servico;
     
     public Integer getId() {
         return id;
@@ -64,12 +66,12 @@ public class ContasReceber {
         this.valor = valor;
     }
 
-    public Ordem getOrdem() {
-        return ordem;
+    public Servico getServico() {
+        return servico;
     }
 
-    public void setOrdem(Ordem ordem) {
-        this.ordem = ordem;
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
     
 }

@@ -74,6 +74,11 @@ app.config(function($routeProvider, $locationProvider){
 		controller: 'itemController'
 	});
 
+	$routeProvider.when('/tarefa', {
+		templateUrl: 'pages/cruds/tarefa.html',
+		controller: 'tarefaController'
+	});
+
 	$routeProvider.when('/servicosLista', {
 		templateUrl: 'pages/servicosLista.html',
 		controller: 'servicosListaController'

@@ -1,5 +1,6 @@
 package sigup_web.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,8 +18,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "colaborador", schema = "sigup")
 
-public class Colaborador {
+public class Colaborador implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idcolaborador")
