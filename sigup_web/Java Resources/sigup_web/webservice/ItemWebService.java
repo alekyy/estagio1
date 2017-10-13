@@ -28,7 +28,7 @@ public class ItemWebService{
 	@Consumes("application/json")
 	public Response inserir(Item obj){
 		try{
-			service.gerarValorItem(obj, true);
+			service.gerarValorItem(obj);
 			return Response.status(200).entity("Salvo com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class ItemWebService{
 	@Consumes("application/json")
 	public Response alterar(Item obj){
 		try{
-			service.gerarValorItem(obj, false);
+			service.gerarValorItem(obj);
 			return Response.status(200).entity("Atualizado com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();

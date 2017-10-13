@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,21 +29,21 @@ public class ItemPeca implements Serializable{
     private Integer id;
     @Column(name = "quantidade")
     private Integer quantidade;
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "idpeca")
-    private List<Peca> pecas;
+    private Peca peca;
 
 
    public Integer getId() {
         return id;
     }
 
-    public List<Peca> getPecas() {
-        return pecas;
+    public Peca getPeca() {
+        return peca;
     }
 
-    public void setPecas(List<Peca> pecas) {
-        this.pecas = pecas;
+    public void setPeca(Peca peca) {
+        this.peca = peca;
     }
 
     public void setId(Integer id) {

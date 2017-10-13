@@ -5,6 +5,7 @@ import java.util.Date;
 import sigup_web.entidades.Compra;
 import sigup_web.entidades.ContasPagar;
 import sigup_web.entidades.Item;
+import sigup_web.entidades.ItemPeca;
 import sigup_web.entidades.Peca;
 import sigup_web.persistence.CompraPersistence;
 
@@ -17,19 +18,16 @@ public class ItemService
 		super();
 	}
 	
-	public void gerarValorItem(Item item, Boolean novoItem) throws Exception{
-		if(item.getPecas() != null){
-			for(Peca peca : item.getPecas()){
-				item.setValor(0.0);
-				item.setValor(item.getValor() + peca.getValor());
+	public void gerarValorItem(Item item) throws Exception{
+		if(item.getItemPecas() != null){
+			item.setValor(0.0);
+			for(ItemPeca itemPeca : item.getItemPecas()){
+				item.setValor(item.getValor() + (itemPeca.getPeca().getValor() * itemPeca.getQuantidade()));
 			}
 			item.setValor(item.getValor() * 1.2);
 		}
 		
-		if(novoItem)
 			persistence.inserir(item);
-		else
-			persistence.alterar(item);
 	}
 
 }

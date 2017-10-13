@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,7 +34,7 @@ public class Item implements Serializable{
     private Integer estoque;
     @Column(name = "valor")
     private Double valor;
-    @ManyToMany
+    @OneToMany
     @JoinColumn(name = "idItemPeca")
     private List<ItemPeca> itemPeca;
 

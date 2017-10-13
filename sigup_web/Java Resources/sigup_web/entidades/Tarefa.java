@@ -2,6 +2,7 @@ package sigup_web.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -53,7 +55,11 @@ public class Tarefa implements Serializable{
 	
 	@OneToOne
 	@JoinColumn(name = "idresponsavel")
-	private Usuario responsavel;
+	private Colaborador responsavel;
+	
+	@OneToMany
+	@JoinColumn(name = "idItemTarefa")
+    private List<ItemTarefa> itemTarefa;
 	
 	public Tarefa() {
 		status = Status.ABERTO;
@@ -115,11 +121,19 @@ public class Tarefa implements Serializable{
 		return custo;
 	}
 	
-	public void setResponsavel(Usuario responsavel) {
+	public void setResponsavel(Colaborador responsavel) {
 		this.responsavel = responsavel;
 	}
-	public Usuario getResponsavel() {
+	public Colaborador getResponsavel() {
 		return responsavel;
 	}
+	
+	public List<ItemTarefa> getItemTarefa() {
+        return itemTarefa;
+    }
+
+    public void setItemTarefa(List<ItemTarefa> itemTarefa) {
+        this.itemTarefa = itemTarefa;
+    }
 
 }
