@@ -31,6 +31,7 @@ angular.module('app').controller('servicosListaController', function ($scope, $l
               item.dataInicio = ("0" + date.getDate()).substr(-2) + "/" + ("0" + (date.getMonth() + 1)).substr(-2) + "/" + date.getFullYear();
           });
           }
+          console.log(response.data);
             $scope.servicosProgresso = response.data;
           }, function(erro){
             console.log(erro);
@@ -88,6 +89,11 @@ angular.module('app').controller('servicosListaController', function ($scope, $l
       $scope.gerarTarefas = function(obj){
           $rootScope.servico = obj;
           $location.path('/tarefa');
+      }
+
+      $scope.visualizar = function(obj){
+        $rootScope.servico = obj;
+        $location.path('/servicoVisao');
       }
 
       $scope.listarServicosEmAberto();

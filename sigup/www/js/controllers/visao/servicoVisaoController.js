@@ -27,11 +27,6 @@ angular.module('app').controller('servicoVisaoController', function ($scope, $lo
       		});
       }
 
-      $scope.visualizar = function(tarefa){
-        $rootScope.tarefa = tarefa;
-        $location.path('/servicoVisao');
-      }
-
       $scope.voltar = function(){
         $rootScope.servico = undefined;
         $location.path('/servicosLista');

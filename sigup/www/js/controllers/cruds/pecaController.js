@@ -16,6 +16,7 @@ $scope.listarPecas();
 
   $scope.salvar = function(){
     if($scope.peca.id == undefined || $scope.peca.id == null){
+      $scope.peca.estoque = 0;
       $http.post($rootScope.url+"peca/inserir", $scope.peca).then(function(response){
         $scope.listarPecas();
         $scope.cancelar();

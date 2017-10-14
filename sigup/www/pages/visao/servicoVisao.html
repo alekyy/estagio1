@@ -29,7 +29,7 @@
                     <h1 class="page-header">Tarefas referente ao Serviço</h1>
                 </div>
             </div>
-            <div class="panel {{panel}}" ng-repeat="tarefa in tarefas" ng-click="visualizar(tarefa)">
+            <div class="panel panel-white" ng-repeat="tarefa in tarefas">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-9 text-left">
@@ -41,8 +41,8 @@
                             <div>Status: {{tarefa.status}}</div>
                             <div>Custo: {{tarefa.custo}}</div>
                             <div>
-                              <select class="form-control" ng-model="tarefa.responsavel.id" ng-options="colaborador.usuario.id as colaborador.nome for colaborador in colaboradores">
-                                <option value="{{colaborador.usuario}}">{{colaborador.nome}}</option>
+                              <select class="form-control" ng-model="tarefa.responsavel.id" ng-options="colaborador.id as colaborador.nome for colaborador in colaboradores">
+                                <option value="{{colaborador.id}}">{{colaborador.nome}}</option>
                               </select>
                             </div>
                         </div>

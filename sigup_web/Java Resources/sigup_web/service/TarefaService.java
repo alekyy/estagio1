@@ -30,15 +30,10 @@ public class TarefaService
 		tarefa.setDataInicio(new Date());
 		tarefa.setStatus(Status.ABERTO);
 		
-		tarefa.getServico().setStatus(Status.EM_PROGRESSO);
+		Servico servico = (Servico) persistence.buscarPorId(Servico.class, tarefa.getServico().getId());
+		servico.setStatus(Status.EM_PROGRESSO);
 		
-		persistence.criarTarefa(tarefa, tarefa.getServico());
-	}
-	
-	public void excluirTarefa(Tarefa tarefa) throws Exception{
-		List<ItemTarefa> itensTarefa = persistence.listarComCondicao(ItemTarefa.class, "tarefa.id = " + tarefa.getId());
-		
-		persistence.excluirTarefa(tarefa, itensTarefa);
+		persistence.criarTarefa(tarefa, servico);
 	}
 	
 }

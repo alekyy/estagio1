@@ -31,19 +31,33 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-2 col-form-label">Estoque</label>
+      <label class="col-2 col-form-label">Descrição</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="item.estoque" ui-number-mask="0" min="1">
+        <input class="form-control" type="text" ng-model="item.descricao">
       </div>
     </div>
-    <div ng-repeat="(index, peca) in item.pecas">
-      <p>{{peca.nome}} <span ng-click="removerPecas(peca, index)" class="glyphicon glyphicon-trash"></span></p>
-    </div>
-    <button class="btn btn-default" ng-click="mostrarPecas()">Adicionar peça</button>
 
-    <div ng-hide="opcoesPecas" ng-repeat="peca in pecas">
-      <p ng-click="adicionarPecas(peca)">{{peca.nome}}</p>
+    <p class="titulo">Peças e quantidade usadas para a montagem.</p>
+    <div ng-repeat="(index, itemPeca) in item.itemPeca">
+      <p>{{itemPeca.peca.nome}}, Quantidade: {{itemPeca.quantidade}} <span ng-click="removerPecas(itemPeca, index)" class="glyphicon glyphicon-trash"></span></p>
     </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Peças</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="itemPeca.peca" ng-options="peca as peca.nome for peca in pecas">
+        <option value="{{itemPeca.peca}}">{{peca.nome}}</option>
+      </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Quantidade de Peças</label>
+      <div class="col-10">
+        <input class="form-control" type="text" ng-model="itemPeca.quantidade">
+      </div>
+    </div>
+
+    <button class="btn btn-default" ng-click="adicionarPeca()">Adicionar peça</button>
 
       <div class="button-bar">
         <button class="btn btn-default" ng-click="salvar()">Salvar</button>

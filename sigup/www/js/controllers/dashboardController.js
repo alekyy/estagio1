@@ -1,5 +1,7 @@
 angular.module('app').controller('dashboardController', function ($scope, $location, $http, $rootScope){
 
+  $rootScope.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
+
   $scope.ordensAbertas = [];
   $scope.ordensProgresso = [];
   $scope.ordensFinalizadas = [];
@@ -91,11 +93,9 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
       }
 
       $scope.abrirServico = function(obj){
-        if(obj.status == 'ABERTO'){
           obj.dataCriacao = (new Date(obj.dataCriacao.split('/').splice(1, 1)[0]+" "+obj.dataCriacao.split('/').splice(0, 1)[0]+" "+obj.dataCriacao.split('/').splice(2, 2)[0])).getTime();
           $rootScope.ordem = obj;
           $location.path('/servico');
-        }
       }
 
       $scope.visualizar = function(obj){

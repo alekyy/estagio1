@@ -6,8 +6,10 @@ angular.module('app').controller('ordemVisaoController', function ($scope, $loca
 
       $scope.buscarServico = function(){
           $http.get($rootScope.url+"servico/buscarServico/"+$scope.ordem.id).then(function(response){
-            console.log(response);
+            var date = new Date(response.data.dataInicio);
+            response.data.dataInicio = ("0" + date.getDate()).substr(-2) + "/" + ("0" + (date.getMonth() + 1)).substr(-2) + "/" + date.getFullYear();
             $scope.servico = response.data;
+            console.log($scope.servico);
             if($scope.servico.status == 'ABERTO')
               $scope.panel = "panel-primary";
             else if($scope.servico.status == 'EM_PROGRESSO')
@@ -15,7 +17,7 @@ angular.module('app').controller('ordemVisaoController', function ($scope, $loca
             else if($scope.servico.status == 'FINALIZADO')
               $scope.panel = "panel-green";
           }, function(erro){
-        			console.log(erro);
+              $scope.servico = undefined;
         	});
       }
 

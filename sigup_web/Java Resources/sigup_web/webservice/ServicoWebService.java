@@ -119,10 +119,11 @@ public class ServicoWebService{
 	@Produces("application/json")
 	public Response buscarServico(@PathParam("idOrdem") Integer idOrdem){
 		try{
-			return Response.status(200).entity(persistence.listarComCondicao(Servico.class, "ordem.id = " + idOrdem).iterator().next()).build();
+			Servico servico = (Servico) persistence.listarComCondicao(Servico.class, "ordem.id = " + idOrdem).iterator().next();
+			return Response.status(200).entity(servico).build();
 		}catch(Exception e){
-			e.printStackTrace();
-			throw new WebApplicationException(500);
+			//e.printStackTrace();
+			return Response.status(404).build();
 		}
 	}
 	

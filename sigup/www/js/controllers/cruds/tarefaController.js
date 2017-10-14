@@ -1,27 +1,32 @@
 angular.module('app').controller('tarefaController', function ($scope, $http, $rootScope, $location){
 
-  $scope.servico = {};
+  $scope.servico = $rootScope.servico;
+  $scope.tarefa = {};
+  $scope.tarefa.servico = {};
+  $scope.tarefa.itemTarefa = [];
+  $scope.itemTarefa = {};
   $scope.prioridades = [1,2,3,4,5];
+  $scope.colaboradores = [];
+  $scope.itens = [];
+
 
   if($rootScope.tarefa != undefined)
     $scope.tarefa = $rootScope.tarefa;
 
   $scope.salvar = function(){
-    if($scope.tarefa.servico == undefined || $scope.tarefa.servico == null)
-      $scope.tarefa.servico = $rootScope.servico;
+    if($scope.tarefa.servico.id == undefined || $scope.tarefa.servico.id == null)
+      $scope.tarefa.servico.id = $rootScope.servico.id;
     if($scope.tarefa.id == undefined || $scope.tarefa.id == null){
-      $scope.tarefa.servico.dataInicio = (new Date($scope.tarefa.servico.dataInicio.split('/').splice(1, 1)[0]+" "+$scope.tarefa.servico.dataInicio.split('/').splice(0, 1)[0]+" "+$scope.tarefa.servico.dataInicio.split('/').splice(2, 2)[0])).getTime();
       $http.post($rootScope.url+"tarefa/inserir", $scope.tarefa).then(function(response){
-        $location.path('/tarefasLista');
+        $location.path('/servicosLista');
 				}, function(erro){
 					console.log(erro);
 				});
     }else{
-    $scope.tarefa.servico.dataInicio = (new Date($scope.tarefa.servico.dataInicio.split('/').splice(1, 1)[0]+" "+$scope.tarefa.servico.dataInicio.split('/').splice(0, 1)[0]+" "+$scope.tarefa.servico.dataInicio.split('/').splice(2, 2)[0])).getTime();
     $scope.tarefa.dataInicio = (new Date($scope.tarefa.dataInicio.split('/').splice(1, 1)[0]+" "+$scope.tarefa.dataInicio.split('/').splice(0, 1)[0]+" "+$scope.tarefa.dataInicio.split('/').splice(2, 2)[0])).getTime();
     $http.put($rootScope.url+"tarefa/alterar", $scope.tarefa).then(function(response){
       $rootScope.tarefa = undefined;
-      $location.path('/tarefasLista');
+      $location.path('/servicosLista');
         }, function(erro){
           console.log(erro);
         });
@@ -36,6 +41,15 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
       });
   }
 
+  $scope.listarItens = function(){
+    $http.get($rootScope.url+"item/listarTodos").then(function(response){
+  			$scope.itens = response.data;
+  		}, function(erro){
+  			console.log(erro);
+  		});
+  }
+
+  $scope.listarItens();
   $scope.listarColaboradores();
 
   $scope.cancelar = function(){
@@ -45,6 +59,15 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
       $rootScope.tarefa = undefined;
       $location.path('/tarefasLista');
     }
+  }
+
+  $scope.adicionarItem = function(){
+    $scope.tarefa.itemTarefa.push($scope.itemTarefa);
+    $scope.itemTarefa = undefined;
+  }
+
+  $scope.removerItem = function(peca, index){
+    $scope.tarefa.itemTarefa.splice(index, 1);
   }
 
 });

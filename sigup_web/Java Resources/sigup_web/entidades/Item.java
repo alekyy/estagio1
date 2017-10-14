@@ -42,11 +42,11 @@ public class Item implements Serializable{
         return id;
     }
 
-    public List<ItemPeca> getItemPecas() {
+    public List<ItemPeca> getItemPeca() {
         return itemPeca;
     }
 
-    public void setPecas(List<ItemPeca> itemPeca) {
+    public void setItemPeca(List<ItemPeca> itemPeca) {
         this.itemPeca = itemPeca;
     }
 

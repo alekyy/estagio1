@@ -1,16 +1,14 @@
 angular.module('app').controller('itemController', function ($scope, $http, $rootScope){
 
   $scope.item = {};
-  $scope.item.pecas = [];
+  $scope.item.itemPeca = [];
+  $scope.itemPeca = {};
   $scope.itens = [];
   $scope.pecas = [];
   $scope.form = true;
-  $scope.opcoesPecas = true;
 
   $scope.listarItens = function(){
-    console.log("Listando itens");
     $http.get($rootScope.url+"item/listarTodos").then(function(response){
-      console.log(response.data);
   			$scope.itens = response.data;
   		}, function(erro){
   			console.log(erro);
@@ -26,10 +24,11 @@ angular.module('app').controller('itemController', function ($scope, $http, $roo
   }
 
 $scope.listarPecas();
-  $scope.listarItens();
+$scope.listarItens();
 
   $scope.salvar = function(){
     if($scope.item.id == undefined || $scope.item.id == null){
+      $scope.item.estoque = 0;
       $http.post($rootScope.url+"item/inserir", $scope.item).then(function(response){
         $scope.listarItens();
         $scope.cancelar();
@@ -59,18 +58,14 @@ $scope.listarPecas();
     	});
   }
 
-  $scope.mostrarPecas = function(){
-    $scope.opcoesPecas = false;
+
+  $scope.adicionarPeca = function(){
+    $scope.item.itemPeca.push($scope.itemPeca);
+    $scope.itemPeca = undefined;
   }
 
-  $scope.adicionarPecas = function(peca){
-    $scope.item.pecas.push(peca);
-    console.log($scope.item);
-    $scope.opcoesPecas = true;
-  }
-
-  $scope.removerPecas = function(peca, index){
-    $scope.item.pecas.splice(index, 1);
+  $scope.removerPecas = function(itemPeca, index){
+    $scope.item.itemPeca.splice(index, 1);
   }
 
   $scope.cancelar = function(){

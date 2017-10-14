@@ -8,6 +8,8 @@ import javax.persistence.Query;
 
 import sigup_web.entidades.Compra;
 import sigup_web.entidades.ContasPagar;
+import sigup_web.entidades.Item;
+import sigup_web.entidades.ItemPeca;
 import sigup_web.entidades.ItemTarefa;
 import sigup_web.entidades.Ordem;
 import sigup_web.entidades.Peca;
@@ -30,6 +32,10 @@ public class TarefaPersistence extends GenericPersistence {
 			entityManager = ConexaoBanco.getConexao().getEm();
 			entityManager.getTransaction().begin();
 			entityManager.persist(tarefa);
+			if(tarefa.getItemTarefa().size() > 0){
+				for(ItemTarefa itemTarefa : tarefa.getItemTarefa())
+					entityManager.persist(itemTarefa);
+			}
 			entityManager.merge(servico);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -40,13 +46,13 @@ public class TarefaPersistence extends GenericPersistence {
 		}
 	}
 	
-	public void excluirTarefa(Tarefa tarefa, List<ItemTarefa> itensTarefa) {
+	public void excluirTarefa(Tarefa tarefa) {
         try {
         	entityManager = ConexaoBanco.getConexao().getEm();
 			entityManager.getTransaction().begin();
 			
-			if(itensTarefa.size() > 0){
-				for(ItemTarefa itemTarefa : itensTarefa)
+			if(tarefa.getItemTarefa().size() > 0){
+				for(ItemTarefa itemTarefa : tarefa.getItemTarefa())
 					entityManager.remove(entityManager.merge(itemTarefa));
 			}
 			
@@ -59,5 +65,28 @@ public class TarefaPersistence extends GenericPersistence {
 			entityManager.close();
 		}
     }
+	
+	public void alterarTarefa(Tarefa tarefa){
+		try {
+			entityManager = ConexaoBanco.getConexao().getEm();
+			entityManager.getTransaction().begin();
+			
+			for(ItemTarefa itemTarefa : tarefa.getItemTarefa()){
+				if(itemTarefa.getId() == null)
+					entityManager.persist(itemTarefa);
+				else
+					entityManager.merge(itemTarefa);
+			}
+			
+			entityManager.merge(tarefa);
+				
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		} finally {
+			entityManager.close();
+		}
+	}
 
 }

@@ -37,6 +37,14 @@
       </div>
     </div>
     <div class="form-group row">
+      <label class="col-2 col-form-label">Cidade</label>
+      <div class="col-10">
+        <select class="form-control" ng-model="empresa.cidade.id" ng-options="cidade.id as cidade.nome for cidade in cidades">
+        <option value="{{cidade.id}}">{{cidade.nome}}</option>
+      </select>
+      </div>
+    </div>
+    <div class="form-group row">
       <label class="col-2 col-form-label">CNPJ</label>
       <div class="col-10">
         <input class="form-control" type="text" ng-model="empresa.cnpj" ui-br-cnpj-mask>

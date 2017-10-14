@@ -2,11 +2,20 @@ angular.module('app').controller('empresaController', function ($scope, $http, $
 
   $scope.empresa = {};
   $scope.empresas = [];
+  $scope.cidades = [];
   $scope.form = true;
 
   $scope.listarEmpresas = function(){
     $http.get($rootScope.url+"empresa/listarTodos").then(function(response){
   			$scope.empresas = response.data;
+  		}, function(erro){
+  			console.log(erro);
+  		});
+  }
+
+  $scope.listarCidades = function(){
+    $http.get($rootScope.url+"cidade/listarTodos").then(function(response){
+  			$scope.cidades = response.data;
   		}, function(erro){
   			console.log(erro);
   		});
@@ -20,6 +29,7 @@ angular.module('app').controller('empresaController', function ($scope, $http, $
   		});
   }
 
+$scope.listarCidades();
 $scope.listarProdutos();
 $scope.listarEmpresas();
 
@@ -56,6 +66,7 @@ $scope.listarEmpresas();
 
   $scope.cancelar = function(){
     $scope.empresa = {};
+    console.log($scope.empresa);
     $scope.form = true;
   }
 

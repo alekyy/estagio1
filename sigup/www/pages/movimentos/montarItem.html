@@ -1,0 +1,54 @@
+<div id="page-wrapper">
+  <p class="titulo">Montar Item</p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Estoque</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in itens">
+      <th scope="row">{{obj.nome}}</th>
+      <td>{{obj.estoque}}</td>
+      <td>{{obj.valor}}</td>
+      <td>
+        <div class="button-bar">
+          <button class="btn btn-default" ng-click="montarItem(obj)">Montar Item</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<div ng-hide="panel" class="panel panel-white" style="border: 1px solid #333 !important;">
+    <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-9 text-left">
+              <div>Nome: {{item.nome}}</div>
+              <div>Descrição: {{item.descricao}}</div>
+              <div>Valor: {{item.valor}}</div>
+              <div>Quantidade em estoque: {{item.estoque}}</div>
+              <div ng-repeat="itemPeca in item.itemPeca"><div>Peça: {{itemPeca.peca.nome}} || Quantidade Usada na Montagem: {{itemPeca.quantidade}}.</div></div>
+          </div>
+          <div class="col-xs-9 text-center">
+            <div class="form-group row">
+              <label class="col-2 col-form-label">Adicione a quantidade desejada para montagem. (A quantidade disponível é {{itensPossiveis}})</label>
+              <div class="col-10">
+                <input class="form-control" type="text" ng-model="itemMontado.quantidade">
+              </div>
+            </div>
+            <div class="button-bar">
+              <button class="btn btn-default" ng-click="inserirNovosItens()">Montar</button>
+              <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+  </div>
+</div>

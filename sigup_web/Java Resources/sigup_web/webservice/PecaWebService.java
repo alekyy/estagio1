@@ -14,12 +14,14 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import sigup_web.entidades.Peca;
+import sigup_web.service.PecaService;
 import sigup_web.util.GenericPersistence;
 
 @Path("/peca")
 public class PecaWebService{
 	
 	GenericPersistence persistence = new GenericPersistence();
+	PecaService service = new PecaService();
 	
 	@Path("/inserir")
 	@POST
@@ -64,9 +66,7 @@ public class PecaWebService{
 	@DELETE
 	public Response excluir(@PathParam("idPeca") Integer idPeca){
 		try{
-			Peca obj = (Peca) persistence.buscarPorId(Peca.class, idPeca);
-			persistence.excluir(obj);
-			return Response.status(200).entity("Excluido com sucesso").build();
+			return service.excluirPeca(idPeca);
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new WebApplicationException(500);

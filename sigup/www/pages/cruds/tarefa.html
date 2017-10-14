@@ -34,6 +34,37 @@
         <option value="{{colaborador.usuario}}">{{colaborador.nome}}</option>
       </select>
     </div>
+
+      <p class="titulo">Item Tarefa</p>
+      <div ng-repeat="(index, itemTarefa) in tarefa.itemTarefa">
+        <p>{{itemTarefa.item.nome}}, Garantia : {{itemTarefa.garantia}}, Quantidade: {{itemTarefa.quantidade}} <span ng-click="removerItem(itemTarefa, index)" class="glyphicon glyphicon-trash"></span></p>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Item</label>
+        <div class="col-10">
+          <select class="form-control" ng-model="itemTarefa.item" ng-options="item as item.nome for item in itens">
+          <option value="{{itemTarefa.item}}">{{item.nome}}</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Garantia</label>
+        <div class="col-10">
+          <select class="form-control" ng-model="itemTarefa.garantia">
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Quantidade de Itens</label>
+        <div class="col-10">
+          <input class="form-control" type="text" ng-model="itemTarefa.quantidade">
+        </div>
+      </div>
+
+      <button class="btn btn-default" ng-click="adicionarItem()">Adicionar item</button>
       <div class="button-bar">
         <button class="btn btn-default" ng-click="salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>

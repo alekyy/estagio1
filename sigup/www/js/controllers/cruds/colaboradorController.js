@@ -2,6 +2,7 @@ angular.module('app').controller('colaboradorController', function ($scope, $htt
 
   $scope.colaborador = {};
   $scope.colaboradores = [];
+  $scope.cidades = [];
   $scope.form = true;
 
   $scope.listarColaboradores = function(){
@@ -12,6 +13,15 @@ angular.module('app').controller('colaboradorController', function ($scope, $htt
   		});
   }
 
+  $scope.listarCidades = function(){
+    $http.get($rootScope.url+"cidade/listarTodos").then(function(response){
+  			$scope.cidades = response.data;
+  		}, function(erro){
+  			console.log(erro);
+  		});
+  }
+
+$scope.listarCidades();
 $scope.listarColaboradores();
 
   $scope.salvar = function(){
@@ -31,6 +41,7 @@ $scope.listarColaboradores();
         });
     }
   }
+
 
   $scope.alterar = function(obj){
     if(obj.dataNascimento != undefined){

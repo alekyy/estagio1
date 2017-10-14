@@ -99,6 +99,11 @@ app.config(function($routeProvider, $locationProvider){
 		controller: 'tarefaVisaoController'
 	});
 
+	$routeProvider.when('/montarItem', {
+		templateUrl: 'pages/movimentos/montarItem.html',
+		controller: 'montarItemController'
+	});
+
 	$routeProvider.otherwise({redirectTo: '/'});
 });
 

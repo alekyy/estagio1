@@ -112,10 +112,10 @@
       <td>{{obj.dataCriacao}}</td>
       <td>
         <div class="button-bar">
-          <button class="btn btn-default" ng-click="visualizar(obj)" ng-show="obj.status != 'ABERTO'"><span class="glyphicon glyphicon-eye-open"></span></button>
+          <button class="btn btn-default" ng-click="visualizar(obj)" ng-hide="obj.status == 'ABERTO'"><span class="glyphicon glyphicon-eye-open"></span></button>
           <button class="btn btn-default" ng-click="alterar(obj)" ng-hide="usuarioLogado.id != obj.usuario.id"><span class="glyphicon glyphicon-pencil"></span></button>
-          <button class="btn btn-default" ng-click="excluir(obj.id)" ng-hide="obj.status != 'ABERTO' && usuarioLogado.nivelAcesso != 'ADMIN'"><span class="glyphicon glyphicon-trash"></span></button>
-          <button class="btn btn-default" ng-click="abrirServico(obj)" ng-show="usuarioLogado.nivelAcesso != 'CLIENTE' && obj.status == 'ABERTO'" > Abrir Serviço</button>
+          <button class="btn btn-default" ng-click="excluir(obj.id)" ng-hide="usuarioLogado.id != obj.usuario.id"><span class="glyphicon glyphicon-trash"></span></button>
+          <button class="btn btn-default" ng-click="abrirServico(obj)" ng-show="usuarioLogado.nivelAcesso != 'CLIENTE' && obj.status == 'ABERTO'"> Abrir Serviço</button>
         </div>
       </td>
     </tr>

@@ -14,6 +14,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import sigup_web.entidades.Item;
+import sigup_web.entidades.ItemMontado;
 import sigup_web.service.ItemService;
 import sigup_web.util.GenericPersistence;
 
@@ -28,7 +29,7 @@ public class ItemWebService{
 	@Consumes("application/json")
 	public Response inserir(Item obj){
 		try{
-			service.gerarValorItem(obj);
+			service.gerarValorItem(obj, true);
 			return Response.status(200).entity("Salvo com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -41,7 +42,7 @@ public class ItemWebService{
 	@Consumes("application/json")
 	public Response alterar(Item obj){
 		try{
-			service.gerarValorItem(obj);
+			service.gerarValorItem(obj, false);
 			return Response.status(200).entity("Atualizado com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -56,6 +57,31 @@ public class ItemWebService{
 		try{
 			List<Item>listaItem = persistence.listar(Item.class);
 			return listaItem;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@Path("/listarItensPossiveis")
+	@POST
+	@Consumes("application/json")
+	public Integer listarItensPossiveis(Item obj){
+		try{
+			return service.verificarItensDisponiveisParaMontagem(obj);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@Path("/montarItem")
+	@POST
+	@Consumes("application/json")
+	public Response montarItem(ItemMontado obj){
+		try{
+			service.montarItens(obj);
+			return Response.status(200).entity("Item montado com sucesso!").build();
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new WebApplicationException(500);

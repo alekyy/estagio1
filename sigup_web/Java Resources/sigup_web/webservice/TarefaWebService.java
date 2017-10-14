@@ -14,20 +14,23 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import sigup_web.entidades.Tarefa;
+import sigup_web.persistence.TarefaPersistence;
+import sigup_web.service.TarefaService;
 import sigup_web.util.GenericPersistence;
 
 
 @Path("/tarefa")
 public class TarefaWebService {
 	
-	GenericPersistence persistence = new GenericPersistence();
+	TarefaPersistence persistence = new TarefaPersistence();
+	TarefaService service = new TarefaService();
 	
 	@Path("/inserir")
 	@POST
 	@Consumes("application/json")
 	public Response inserir(Tarefa obj){
 		try{
-			persistence.inserir(obj);
+			service.criarTarefa(obj);
 			return Response.status(200).entity("Salvo com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -40,7 +43,7 @@ public class TarefaWebService {
 	@Consumes("application/json")
 	public Response alterar(Tarefa obj){
 		try{
-			persistence.alterar(obj);
+			persistence.alterarTarefa(obj);
 			return Response.status(200).entity("Atualizado com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -79,7 +82,7 @@ public class TarefaWebService {
 	public Response excluir(@PathParam("idTarefa") Integer idTarefa){
 		try{
 			Tarefa obj = (Tarefa) persistence.buscarPorId(Tarefa.class, idTarefa);
-			persistence.excluir(obj);
+			persistence.excluirTarefa(obj);
 			return Response.status(200).entity("Excluido com sucesso").build();
 		}catch(Exception e){
 			e.printStackTrace();
