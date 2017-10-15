@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import sigup_web.entidades.Servico;
 import sigup_web.entidades.Tarefa;
 import sigup_web.persistence.TarefaPersistence;
 import sigup_web.service.TarefaService;
@@ -30,8 +31,7 @@ public class TarefaWebService {
 	@Consumes("application/json")
 	public Response inserir(Tarefa obj){
 		try{
-			service.criarTarefa(obj);
-			return Response.status(200).entity("Salvo com sucesso").build();
+			return service.criarTarefa(obj);
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new WebApplicationException(500);
@@ -45,6 +45,19 @@ public class TarefaWebService {
 		try{
 			persistence.alterarTarefa(obj);
 			return Response.status(200).entity("Atualizado com sucesso").build();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
+	@Path("/editar")
+	@PUT
+	@Consumes("application/json")
+	public Response editar(Tarefa obj){
+		try{
+			service.editarTarefa(obj);
+			return Response.status(200).entity(persistence.buscarPorId(Servico.class, obj.getServico().getId())).build();
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new WebApplicationException(500);

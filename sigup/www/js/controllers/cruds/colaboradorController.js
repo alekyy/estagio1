@@ -4,6 +4,7 @@ angular.module('app').controller('colaboradorController', function ($scope, $htt
   $scope.colaboradores = [];
   $scope.cidades = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarColaboradores = function(){
     $http.get($rootScope.url+"colaborador/listarTodos").then(function(response){
@@ -25,20 +26,22 @@ $scope.listarCidades();
 $scope.listarColaboradores();
 
   $scope.salvar = function(){
-    if($scope.colaborador.id == undefined || $scope.colaborador.id == null){
-      $http.post($rootScope.url+"colaborador/inserir", $scope.colaborador).then(function(response){
-        $scope.listarColaboradores();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"colaborador/alterar", $scope.colaborador).then(function(response){
-        $scope.listarColaboradores();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.colaborador.id == undefined || $scope.colaborador.id == null){
+        $http.post($rootScope.url+"colaborador/inserir", $scope.colaborador).then(function(response){
+          $scope.listarColaboradores();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"colaborador/alterar", $scope.colaborador).then(function(response){
+          $scope.listarColaboradores();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -62,6 +65,7 @@ $scope.listarColaboradores();
   $scope.cancelar = function(){
     $scope.colaborador = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

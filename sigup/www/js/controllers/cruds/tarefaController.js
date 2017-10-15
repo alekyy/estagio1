@@ -8,28 +8,30 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
   $scope.prioridades = [1,2,3,4,5];
   $scope.colaboradores = [];
   $scope.itens = [];
-
+  $scope.click = false;
+  $scope.clickItem = false;
 
   if($rootScope.tarefa != undefined)
     $scope.tarefa = $rootScope.tarefa;
 
   $scope.salvar = function(){
-    if($scope.tarefa.servico.id == undefined || $scope.tarefa.servico.id == null)
-      $scope.tarefa.servico.id = $rootScope.servico.id;
-    if($scope.tarefa.id == undefined || $scope.tarefa.id == null){
-      $http.post($rootScope.url+"tarefa/inserir", $scope.tarefa).then(function(response){
+    if(!$scope.myform.$invalid){
+      if($scope.tarefa.servico.id == undefined || $scope.tarefa.servico.id == null)
+        $scope.tarefa.servico.id = $rootScope.servico.id;
+      if($scope.tarefa.id == undefined || $scope.tarefa.id == null){
+        $http.post($rootScope.url+"tarefa/inserir", $scope.tarefa).then(function(response){
+          $location.path('/servicosLista');
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"tarefa/alterar", $scope.tarefa).then(function(response){
+        $rootScope.tarefa = undefined;
         $location.path('/servicosLista');
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-    $scope.tarefa.dataInicio = (new Date($scope.tarefa.dataInicio.split('/').splice(1, 1)[0]+" "+$scope.tarefa.dataInicio.split('/').splice(0, 1)[0]+" "+$scope.tarefa.dataInicio.split('/').splice(2, 2)[0])).getTime();
-    $http.put($rootScope.url+"tarefa/alterar", $scope.tarefa).then(function(response){
-      $rootScope.tarefa = undefined;
-      $location.path('/servicosLista');
-        }, function(erro){
-          console.log(erro);
-        });
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -53,6 +55,8 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
   $scope.listarColaboradores();
 
   $scope.cancelar = function(){
+    $scope.click = false;
+    $scope.clickItem = false;
     if($rootScope.tarefa == undefined || $rootScope.tarefa == null)
       $location.path('/servicosLista');
     else {
@@ -62,8 +66,10 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
   }
 
   $scope.adicionarItem = function(){
-    $scope.tarefa.itemTarefa.push($scope.itemTarefa);
-    $scope.itemTarefa = undefined;
+    if($scope.itemTarefa.item != undefined && $scope.itemTarefa.item.quantidade != undefined && $scope.itemTarefa.item.garantia != undefined){
+      $scope.tarefa.itemTarefa.push($scope.itemTarefa);
+      $scope.itemTarefa = undefined;
+    }
   }
 
   $scope.removerItem = function(peca, index){

@@ -1,23 +1,23 @@
 <div id="page-wrapper">
   <p class="titulo">CRUD Ordem</p>
 
-  <div>
+  <form name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Titulo</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="ordem.titulo">
+        <input class="form-control" type="text" ng-model="ordem.titulo" ng-class="{'required' : ordem.titulo == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Descrição</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="ordem.descricao">
+        <input class="form-control" type="text" ng-model="ordem.descricao" ng-class="{'required' : ordem.descricao == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Produto</label>
       <div class="col-10">
-        <select class="form-control" ng-model="ordem.produto.id" ng-options="produto.id as produto.nome for produto in produtos">
+        <select class="form-control" ng-model="ordem.produto.id" ng-options="produto.id as produto.nome for produto in produtos" ng-class="{'required' : ordem.produto.id == undefined && click == true}" ng-required="true">
         <option value="{{modulo.produto}}">{{produto.nome}}</option>
       </select>
       </div>
@@ -25,7 +25,7 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Tipo de Ordem</label>
       <div class="col-10">
-        <select class="form-control" ng-model="ordem.tipoOrdem">
+        <select class="form-control" ng-model="ordem.tipoOrdem" ng-class="{'required' : ordem.tipoOrdem == undefined && click == true}" ng-required="true">
         <option>PROJETO</option>
         <option>CORRECAO</option>
       </select>
@@ -34,14 +34,14 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Prioridade(Sendo 1 importante e 5 super urgente)</label>
       <div class="col-10">
-        <select class="form-control" ng-model="ordem.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades">
+        <select class="form-control" ng-model="ordem.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades" ng-class="{'required' : ordem.prioridade == undefined && click == true}" ng-required="true">
           <option value="{{ordem.prioridade}}">{{prioridade}}</option>
       </select>
       </div>
     </div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

@@ -4,6 +4,7 @@ angular.module('app').controller('cidadeController', function ($scope, $http, $r
   $scope.cidades = [];
   $scope.estados = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarCidades = function(){
     $http.get($rootScope.url+"cidade/listarTodos").then(function(response){
@@ -25,20 +26,22 @@ $scope.listarEstados();
 $scope.listarCidades();
 
   $scope.salvar = function(){
-    if($scope.cidade.id == undefined || $scope.cidade.id == null){
-      $http.post($rootScope.url+"cidade/inserir", $scope.cidade).then(function(response){
-        $scope.listarCidades();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"cidade/alterar", $scope.cidade).then(function(response){
-        $scope.listarCidades();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.cidade.id == undefined || $scope.cidade.id == null){
+        $http.post($rootScope.url+"cidade/inserir", $scope.cidade).then(function(response){
+          $scope.listarCidades();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"cidade/alterar", $scope.cidade).then(function(response){
+          $scope.listarCidades();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -58,6 +61,7 @@ $scope.listarCidades();
   $scope.cancelar = function(){
     $scope.cidade = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

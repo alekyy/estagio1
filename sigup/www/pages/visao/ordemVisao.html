@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div>Data Criação: {{ordem.dataCriacao}}</div>
-                            <div>Data Finalização: {{ordem.dataFinalizacao}}</div>
+                            <div ng-show="ordem.dataFinalizacao != undefined && ordem.dataFinalizacao != null">Data Finalização: {{ordem.dataFinalizacao}}</div>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div>Data Inicio: {{servico.dataInicio}}</div>
-                            <div>Data Finalização: {{servico.dataFinalizacao}}</div>
+                            <div ng-show="servico.dataTermino != undefined && servico.dataTermino != null">Data Finalização: {{servico.dataTermino}}</div>
                         </div>
                     </div>
                 </div>

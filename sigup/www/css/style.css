@@ -3,3 +3,7 @@ body{background: #eee url(http://subtlepatterns.com/patterns/sativa.png);}
   text-align: center;
    font-size: 20px;
 }
+
+.required{
+  border-color: red;
+}

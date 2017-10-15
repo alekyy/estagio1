@@ -1,30 +1,30 @@
 <div id="page-wrapper">
   <p class="titulo">CRUD Serviço</p>
 
-  <div>
+  <form name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Titulo</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="servico.titulo">
+        <input class="form-control" type="text" ng-model="servico.titulo" ng-class="{'required' : servico.titulo == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Descrição</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="servico.descricao">
+        <input class="form-control" type="text" ng-model="servico.descricao" ng-class="{'required' : servico.descricao == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Prioridade(Sendo 1 importante e 5 super urgente)</label>
       <div class="col-10">
-        <select class="form-control" ng-model="servico.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades">
+        <select class="form-control" ng-model="servico.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades" ng-class="{'required' : servico.prioridade == undefined && click == true}" ng-required="true">
           <option value="{{servico.prioridade}}">{{prioridade}}</option>
       </select>
       </div>
     </div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

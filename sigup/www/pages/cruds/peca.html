@@ -23,23 +23,23 @@
   </tbody>
 </table>
 
-  <div ng-hide="form">
+  <form ng-hide="form" name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nome</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="peca.nome">
+        <input class="form-control" type="text" ng-model="peca.nome" ng-class="{'required' : peca.nome == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Valor</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="peca.valor" ui-money-mask>
+        <input class="form-control" type="text" ng-model="peca.valor" ui-money-mask ng-class="{'required' : peca.valor == undefined && click == true}" ng-required="true">
       </div>
     </div>
 
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

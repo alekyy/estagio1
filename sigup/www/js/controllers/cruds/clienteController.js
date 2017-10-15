@@ -3,6 +3,7 @@ angular.module('app').controller('clienteController', function ($scope, $http, $
   $scope.cliente = {};
   $scope.clientes = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarClientes = function(){
     $http.get($rootScope.url+"cliente/listarTodos").then(function(response){
@@ -24,20 +25,22 @@ $scope.listarEmpresas();
 $scope.listarClientes();
 
   $scope.salvar = function(){
-    if($scope.cliente.id == undefined || $scope.cliente.id == null){
-      $http.post($rootScope.url+"cliente/inserir", $scope.cliente).then(function(response){
-        $scope.listarClientes();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"cliente/alterar", $scope.cliente).then(function(response){
-        $scope.listarClientes();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.cliente.id == undefined || $scope.cliente.id == null){
+        $http.post($rootScope.url+"cliente/inserir", $scope.cliente).then(function(response){
+          $scope.listarClientes();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"cliente/alterar", $scope.cliente).then(function(response){
+          $scope.listarClientes();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -57,6 +60,7 @@ $scope.listarClientes();
   $scope.cancelar = function(){
     $scope.cliente = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

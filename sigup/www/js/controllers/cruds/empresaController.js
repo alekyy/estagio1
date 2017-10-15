@@ -4,6 +4,7 @@ angular.module('app').controller('empresaController', function ($scope, $http, $
   $scope.empresas = [];
   $scope.cidades = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarEmpresas = function(){
     $http.get($rootScope.url+"empresa/listarTodos").then(function(response){
@@ -34,20 +35,22 @@ $scope.listarProdutos();
 $scope.listarEmpresas();
 
   $scope.salvar = function(){
-    if($scope.empresa.id == undefined || $scope.empresa.id == null){
-      $http.post($rootScope.url+"empresa/inserir", $scope.empresa).then(function(response){
-        $scope.listarEmpresas();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"empresa/alterar", $scope.empresa).then(function(response){
-        $scope.listarEmpresas();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.empresa.id == undefined || $scope.empresa.id == null){
+        $http.post($rootScope.url+"empresa/inserir", $scope.empresa).then(function(response){
+          $scope.listarEmpresas();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"empresa/alterar", $scope.empresa).then(function(response){
+          $scope.listarEmpresas();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -66,8 +69,8 @@ $scope.listarEmpresas();
 
   $scope.cancelar = function(){
     $scope.empresa = {};
-    console.log($scope.empresa);
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

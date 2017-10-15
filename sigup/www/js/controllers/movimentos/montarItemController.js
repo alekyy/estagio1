@@ -37,18 +37,20 @@ $scope.listarPecas();
 $scope.listarItens();
 
 $scope.inserirNovosItens = function(){
-  $scope.itemMontado.item = $scope.item;
-  $scope.itemMontado.responsavel = $rootScope.usuarioLogado;
-  console.log($scope.itemMontado);
-  $http.post($rootScope.url+"item/montarItem", $scope.itemMontado).then(function(response){
-    $scope.listarItens();
-    $scope.listarPecas();
-    $scope.panel = true;
-    $scope.item = {};
-    $scope.itemMontado = {};
-    }, function(erro){
-      console.log(erro);
-    });
+  if(!$scope.myform.$invalid){
+    $scope.itemMontado.item = $scope.item;
+    $scope.itemMontado.responsavel = $rootScope.usuarioLogado;
+    console.log($scope.itemMontado);
+    $http.post($rootScope.url+"item/montarItem", $scope.itemMontado).then(function(response){
+      $scope.listarItens();
+      $scope.listarPecas();
+      $scope.panel = true;
+      $scope.item = {};
+      $scope.itemMontado = {};
+      }, function(erro){
+        console.log(erro);
+      });
+  }
 }
 
 

@@ -27,21 +27,23 @@ $scope.listarPecas();
 $scope.listarItens();
 
   $scope.salvar = function(){
-    if($scope.item.id == undefined || $scope.item.id == null){
-      $scope.item.estoque = 0;
-      $http.post($rootScope.url+"item/inserir", $scope.item).then(function(response){
-        $scope.listarItens();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"item/alterar", $scope.item).then(function(response){
-        $scope.listarItens();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid && $scope.item.itemPeca.length != 0){
+      if($scope.item.id == undefined || $scope.item.id == null){
+        $scope.item.estoque = 0;
+        $http.post($rootScope.url+"item/inserir", $scope.item).then(function(response){
+          $scope.listarItens();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"item/alterar", $scope.item).then(function(response){
+          $scope.listarItens();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -60,8 +62,10 @@ $scope.listarItens();
 
 
   $scope.adicionarPeca = function(){
+    if($scope.itemPeca.quantidade != undefined && $scope.itemPeca.peca != undefined){
     $scope.item.itemPeca.push($scope.itemPeca);
     $scope.itemPeca = undefined;
+    }
   }
 
   $scope.removerPecas = function(itemPeca, index){

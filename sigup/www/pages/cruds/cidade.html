@@ -21,24 +21,24 @@
   </tbody>
 </table>
 
-  <div ng-hide="form">
+  <form ng-hide="form" name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nome</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="cidade.nome">
+        <input class="form-control" type="text" ng-model="cidade.nome" ng-class="{'required' : cidade.nome == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Estado</label>
       <div class="col-10">
-        <select class="form-control" ng-model="cidade.estado.id" ng-options="estado.id as estado.nome for estado in estados">
+        <select class="form-control" ng-model="cidade.estado.id" ng-options="estado.id as estado.nome for estado in estados" ng-class="{'required' : cidade.estado.id == undefined && click == true}" ng-required="true">
         <option value="{{cidade.estado}}">{{estado.nome}}</option>
       </select>
       </div>
     </div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

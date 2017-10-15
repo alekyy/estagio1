@@ -1,23 +1,23 @@
 <div id="page-wrapper">
   <p class="titulo">CRUD Tarefa</p>
 
-  <div>
+  <form name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Titulo</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="tarefa.titulo">
+        <input class="form-control" type="text" ng-model="tarefa.titulo" ng-class="{'required' : tarefa.titulo == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Descrição</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="tarefa.descricao">
+        <input class="form-control" type="text" ng-model="tarefa.descricao" ng-class="{'required' : tarefa.descricao == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Prioridade(Sendo 1 importante e 5 super urgente)</label>
       <div class="col-10">
-        <select class="form-control" ng-model="tarefa.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades">
+        <select class="form-control" ng-model="tarefa.prioridade" ng-options="prioridade as prioridade for prioridade in prioridades" ng-class="{'required' : tarefa.prioridade == undefined && click == true}" ng-required="true">
           <option value="{{tarefa.prioridade}}">{{prioridade}}</option>
       </select>
       </div>
@@ -25,7 +25,7 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Custo</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="tarefa.custo" ui-money-mask>
+        <input class="form-control" type="text" ng-model="tarefa.custo" ui-money-mask ng-class="{'required' : tarefa.custo == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
@@ -35,6 +35,7 @@
       </select>
     </div>
 
+<div ng-hide="tarefa.id != undefined && tarefa.id != null">
       <p class="titulo">Item Tarefa</p>
       <div ng-repeat="(index, itemTarefa) in tarefa.itemTarefa">
         <p>{{itemTarefa.item.nome}}, Garantia : {{itemTarefa.garantia}}, Quantidade: {{itemTarefa.quantidade}} <span ng-click="removerItem(itemTarefa, index)" class="glyphicon glyphicon-trash"></span></p>
@@ -43,7 +44,7 @@
       <div class="form-group row">
         <label class="col-2 col-form-label">Item</label>
         <div class="col-10">
-          <select class="form-control" ng-model="itemTarefa.item" ng-options="item as item.nome for item in itens">
+          <select class="form-control" ng-model="itemTarefa.item" ng-options="item as item.nome for item in itens" ng-class="{'required' : itemTarefa.item == undefined && clickItem == true}">
           <option value="{{itemTarefa.item}}">{{item.nome}}</option>
         </select>
         </div>
@@ -51,7 +52,7 @@
       <div class="form-group row">
         <label class="col-2 col-form-label">Garantia</label>
         <div class="col-10">
-          <select class="form-control" ng-model="itemTarefa.garantia">
+          <select class="form-control" ng-model="itemTarefa.garantia" ng-class="{'required' : itemTarefa.garantia == undefined && clickItem == true}">
           <option value="true">Sim</option>
           <option value="false">Não</option>
         </select>
@@ -60,14 +61,15 @@
       <div class="form-group row">
         <label class="col-2 col-form-label">Quantidade de Itens</label>
         <div class="col-10">
-          <input class="form-control" type="text" ng-model="itemTarefa.quantidade">
+          <input class="form-control" type="text" ng-model="itemTarefa.quantidade" ng-class="{'required' : itemTarefa.quantidade == undefined && clickItem == true}">
         </div>
       </div>
 
-      <button class="btn btn-default" ng-click="adicionarItem()">Adicionar item</button>
+      <button class="btn btn-default" ng-click="clickItem = true; adicionarItem()">Adicionar item</button>
+</div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

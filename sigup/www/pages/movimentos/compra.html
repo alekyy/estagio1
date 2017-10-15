@@ -17,7 +17,7 @@
   </tbody>
 </table>
 
-  <div ng-hide="form">
+  <form ng-hide="form" name="myform" novalidate>
 
   <p class="titulo">Compra de Peça</p>
   <div ng-repeat="(index, pecaCompra) in compra.pecaCompra">
@@ -27,13 +27,13 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Descrição</label>
     <div class="col-10">
-      <input class="form-control" type="text" ng-model="compra.descricao">
+      <input class="form-control" type="text" ng-model="compra.descricao" ng-class="{'required' : compra.descricao == undefined && click == true}" ng-required="true">
     </div>
   </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Peças</label>
       <div class="col-10">
-        <select class="form-control" ng-model="pecaCompra.peca" ng-options="peca as peca.nome for peca in pecas">
+        <select class="form-control" ng-model="pecaCompra.peca" ng-options="peca as peca.nome for peca in pecas" ng-class="{'required' : compra.pecaCompra.length == 0 && click == true}">
         <option value="{{pecaCompra.peca}}">{{peca.nome}}</option>
       </select>
       </div>
@@ -41,14 +41,14 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Quantidade de Peças</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="pecaCompra.quantidade">
+        <input class="form-control" type="text" ng-model="pecaCompra.quantidade" ng-class="{'required' : compra.pecaCompra.length == 0 && click == true}">
       </div>
     </div>
 
-    <button class="btn btn-default" ng-click="adicionarPeca()">Adicionar peça</button>
+    <button class="btn btn-default" ng-click="click = true; adicionarPeca()">Adicionar peça</button>
 
   <div class="button-bar">
-    <button class="btn btn-default" ng-click="salvar()">Finalizar Compra</button>
+    <button class="btn btn-default" ng-click="click = true; salvar()">Finalizar Compra</button>
     <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
   </div>
-</div>
+</form>

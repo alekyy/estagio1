@@ -3,6 +3,7 @@ angular.module('app').controller('estadoController', function ($scope, $http, $r
   $scope.estado = {};
   $scope.estados = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarEstados = function(){
     $http.get($rootScope.url+"estado/listarTodos").then(function(response){
@@ -15,20 +16,22 @@ angular.module('app').controller('estadoController', function ($scope, $http, $r
 $scope.listarEstados();
 
   $scope.salvar = function(){
-    if($scope.estado.id == undefined || $scope.estado.id == null){
-      $http.post($rootScope.url+"estado/inserir", $scope.estado).then(function(response){
-        $scope.listarEstados();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"estado/alterar", $scope.estado).then(function(response){
-        $scope.listarEstados();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.estado.id == undefined || $scope.estado.id == null){
+        $http.post($rootScope.url+"estado/inserir", $scope.estado).then(function(response){
+          $scope.listarEstados();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"estado/alterar", $scope.estado).then(function(response){
+          $scope.listarEstados();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -48,6 +51,7 @@ $scope.listarEstados();
   $scope.cancelar = function(){
     $scope.estado = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

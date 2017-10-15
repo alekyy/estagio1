@@ -6,6 +6,7 @@ angular.module('app').controller('compraController', function ($scope, $http, $r
   $scope.pecaCompra = {};
   $scope.pecas = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarCompras = function(){
     $http.get($rootScope.url+"compra/listarTodos").then(function(response){
@@ -32,28 +33,22 @@ $scope.listarPecas();
 $scope.listarCompras();
 
   $scope.salvar = function(){
-    $scope.compra.usuario = $rootScope.usuarioLogado.usuario;
-    if($scope.compra.id == undefined || $scope.compra.id == null){
-      $http.post($rootScope.url+"compra/inserir", $scope.compra).then(function(response){
-        $scope.listarCompras();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $scope.compra.dataCompra = (new Date($scope.compra.dataCompra.split('/').splice(1, 1)[0]+" "+$scope.compra.dataCompra.split('/').splice(0, 1)[0]+" "+$scope.compra.dataCompra.split('/').splice(2, 2)[0])).getTime();
-      $http.put($rootScope.url+"compra/alterar", $scope.compra).then(function(response){
-        $scope.listarCompras();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid && $scope.compra.pecaCompra.length != 0){
+      $scope.compra.usuario = $rootScope.usuarioLogado.usuario;
+        $http.post($rootScope.url+"compra/inserir", $scope.compra).then(function(response){
+          $scope.listarCompras();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
     }
   }
 
   $scope.adicionarPeca = function(){
-    $scope.compra.pecaCompra.push($scope.pecaCompra);
-    $scope.pecaCompra = undefined;
+    if($scope.pecaCompra.quantidade != undefined && $scope.pecaCompra.peca != undefined){
+      $scope.compra.pecaCompra.push($scope.pecaCompra);
+      $scope.pecaCompra = undefined;
+    }
   }
 
   $scope.removerPecas = function(peca, index){
@@ -63,6 +58,7 @@ $scope.listarCompras();
   $scope.cancelar = function(){
     $scope.compra = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

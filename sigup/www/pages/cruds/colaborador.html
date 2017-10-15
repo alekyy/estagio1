@@ -25,23 +25,23 @@
   </tbody>
 </table>
 
-  <div ng-hide="form">
+  <form ng-hide="form" name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nome</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.nome">
+        <input class="form-control" type="text" ng-model="colaborador.nome" ng-class="{'required' : colaborador.nome == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">CPF</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.cpf" ui-br-cpf-mask>
+        <input class="form-control" type="text" ng-model="colaborador.cpf" ui-br-cpf-mask ng-class="{'required' : colaborador.cpf == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Cidade</label>
       <div class="col-10">
-        <select class="form-control" ng-model="colaborador.cidade.id" ng-options="cidade.id as cidade.nome for cidade in cidades">
+        <select class="form-control" ng-model="colaborador.cidade.id" ng-options="cidade.id as cidade.nome for cidade in cidades" ng-class="{'required' : colaborador.cidade.id == undefined && click == true}" ng-required="true">
         <option value="{{cidade.id}}">{{cidade.nome}}</option>
       </select>
       </div>
@@ -49,37 +49,37 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Numero</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.numero" ui-number-mask="0">
+        <input class="form-control" type="text" ng-model="colaborador.numero" ui-number-mask="0" ng-class="{'required' : colaborador.numero == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Endereço</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.endereco">
+        <input class="form-control" type="text" ng-model="colaborador.endereco" ng-class="{'required' : colaborador.endereco == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Cep</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.cep" ui-br-cep-mask>
+        <input class="form-control" type="text" ng-model="colaborador.cep" ui-br-cep-mask ng-class="{'required' : colaborador.cep == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Telefone</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.telefone" ui-br-phone-number>
+        <input class="form-control" type="text" ng-model="colaborador.telefone" ui-br-phone-number ng-class="{'required' : colaborador.telefone == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Data de Nascimento</label>
       <div class="col-10">
-        <input class="form-control" type="date" ng-model="colaborador.dataNascimento">
+        <input class="form-control" type="date" ng-model="colaborador.dataNascimento" ng-class="{'required' : colaborador.dataNascimento == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nivel de Acesso</label>
       <div class="col-10">
-        <select class="form-control" ng-model="colaborador.usuario.nivelAcesso">
+        <select class="form-control" ng-model="colaborador.usuario.nivelAcesso" ng-class="{'required' : colaborador.usuario.nivelAcesso == undefined && click == true}" ng-required="true">
         <option>COLABORADOR</option>
         <option>ADMIN</option>
       </select>
@@ -88,18 +88,18 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Usuário</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="colaborador.usuario.login">
+        <input class="form-control" type="text" ng-model="colaborador.usuario.login" ng-class="{'required' : colaborador.usuario.login == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Senha</label>
       <div class="col-10">
-        <input class="form-control" type="password" ng-model="colaborador.usuario.senha">
+        <input class="form-control" type="password" ng-model="colaborador.usuario.senha" ng-class="{'required' : colaborador.usuario.senha == undefined && click == true}" ng-required="true">
       </div>
     </div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

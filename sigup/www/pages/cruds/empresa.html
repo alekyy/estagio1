@@ -23,23 +23,23 @@
   </tbody>
 </table>
 
-  <div ng-hide="form">
+  <form ng-hide="form" name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nome</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.nome">
+        <input class="form-control" type="text" ng-model="empresa.nome" ng-class="{'required' : empresa.nome == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nome Fantasia</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.nomeFantasia">
+        <input class="form-control" type="text" ng-model="empresa.nomeFantasia" ng-class="{'required' : empresa.nomeFantasia == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Cidade</label>
       <div class="col-10">
-        <select class="form-control" ng-model="empresa.cidade.id" ng-options="cidade.id as cidade.nome for cidade in cidades">
+        <select class="form-control" ng-model="empresa.cidade.id" ng-options="cidade.id as cidade.nome for cidade in cidades" ng-class="{'required' : empresa.cidade.id == undefined && click == true}" ng-required="true">
         <option value="{{cidade.id}}">{{cidade.nome}}</option>
       </select>
       </div>
@@ -47,44 +47,44 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">CNPJ</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.cnpj" ui-br-cnpj-mask>
+        <input class="form-control" type="text" ng-model="empresa.cnpj" ui-br-cnpj-mask ng-class="{'required' : empresa.cnpj == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Endereço</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.endereco">
+        <input class="form-control" type="text" ng-model="empresa.endereco" ng-class="{'required' : empresa.endereco == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Cep</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.cep" ui-br-cep-mask>
+        <input class="form-control" type="text" ng-model="empresa.cep" ui-br-cep-mask ng-class="{'required' : empresa.cep == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Numero</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.numero" ui-number-mask="0">
+        <input class="form-control" type="text" ng-model="empresa.numero" ui-number-mask="0" ng-class="{'required' : empresa.numero == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Telefone</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="empresa.telefone" ui-br-phone-number>
+        <input class="form-control" type="text" ng-model="empresa.telefone" ui-br-phone-number ng-class="{'required' : empresa.telefone == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Produto</label>
       <div class="col-10">
-        <select class="form-control" ng-model="empresa.produto.id" ng-options="produto.id as produto.nome for produto in produtos">
+        <select class="form-control" ng-model="empresa.produto.id" ng-options="produto.id as produto.nome for produto in produtos" ng-class="{'required' : empresa.produto.id == undefined && click == true}" ng-required="true">
         <option value="{{modulo.produto}}">{{produto.nome}}</option>
       </select>
       </div>
     </div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

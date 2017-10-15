@@ -34,18 +34,20 @@
               <div>Quantidade em estoque: {{item.estoque}}</div>
               <div ng-repeat="itemPeca in item.itemPeca"><div>Peça: {{itemPeca.peca.nome}} || Quantidade Usada na Montagem: {{itemPeca.quantidade}}.</div></div>
           </div>
+          <form name="myform" novalidate>
           <div class="col-xs-9 text-center">
             <div class="form-group row">
               <label class="col-2 col-form-label">Adicione a quantidade desejada para montagem. (A quantidade disponível é {{itensPossiveis}})</label>
               <div class="col-10">
-                <input class="form-control" type="text" ng-model="itemMontado.quantidade">
+                <input class="form-control" type="text" ng-model="itemMontado.quantidade" ng-class="{'required' : itemMontado.quantidade == undefined && click == true}" ng-required="true">
               </div>
             </div>
             <div class="button-bar">
-              <button class="btn btn-default" ng-click="inserirNovosItens()">Montar</button>
+              <button class="btn btn-default" ng-click="click = true; inserirNovosItens()">Montar</button>
               <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
             </div>
           </div>
+        </form>
         </div>
     </div>
 </div>

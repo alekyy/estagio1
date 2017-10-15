@@ -25,42 +25,42 @@
   </tbody>
 </table>
 
-  <div ng-hide="form">
+  <form ng-hide="form" name="myform" novalidate>
     <div class="form-group row">
       <label class="col-2 col-form-label">Nome</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="cliente.nome">
+        <input class="form-control" type="text" ng-model="cliente.nome" ng-class="{'required' : cliente.nome == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">CPF</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="cliente.cpf" ui-br-cpf-mask>
+        <input class="form-control" type="text" ng-model="cliente.cpf" ui-br-cpf-mask ng-class="{'required' : cliente.cpf == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Usuario</label>
       <div class="col-10">
-        <input class="form-control" type="text" ng-model="cliente.usuario.login">
+        <input class="form-control" type="text" ng-model="cliente.usuario.login" ng-class="{'required' : cliente.usuario.login == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Senha</label>
       <div class="col-10">
-        <input class="form-control" type="password" ng-model="cliente.usuario.senha">
+        <input class="form-control" type="password" ng-model="cliente.usuario.senha" ng-class="{'required' : cliente.usuario.senha == undefined && click == true}" ng-required="true">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-2 col-form-label">Empresa</label>
       <div class="col-10">
-        <select class="form-control" ng-model="cliente.empresa.id" ng-options="empresa.id as empresa.nomeFantasia for empresa in empresas">
+        <select class="form-control" ng-model="cliente.empresa.id" ng-options="empresa.id as empresa.nomeFantasia for empresa in empresas" ng-class="{'required' : cliente.empresa.id == undefined && click == true}" ng-required="true">
         <option value="{{cliente.empresa}}">{{empresa.nomeFantasia}}</option>
       </select>
       </div>
     </div>
       <div class="button-bar">
-        <button class="btn btn-default" ng-click="salvar()">Salvar</button>
+        <button class="btn btn-default" ng-click="click = true; salvar()">Salvar</button>
         <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
       </div>
-  </div>
+  </form>
 </div>

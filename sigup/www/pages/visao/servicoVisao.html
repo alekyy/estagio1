@@ -18,8 +18,8 @@
                           <div>Status: {{servico.status}}</div>
                       </div>
                       <div class="col-xs-9 text-right">
-                          <div>Data Inicio: {{ordem.dataInicio}}</div>
-                          <div>Data Finalização: {{ordem.dataFinalizacao}}</div>
+                          <div>Data Inicio: {{servico.dataInicio}}</div>
+                          <div ng-show="servico.dataTermino != undefined && servico.dataTermino != null">Data Finalização: {{servico.dataTermino}}</div>
                       </div>
                     </div>
                 </div>
@@ -29,10 +29,11 @@
                     <h1 class="page-header">Tarefas referente ao Serviço</h1>
                 </div>
             </div>
-            <div class="panel panel-white" ng-repeat="tarefa in tarefas">
+            <div class="panel" ng-class="{'panel-primary' : tarefa.status == 'ABERTO', 'panel-yellow' : tarefa.status == 'EM_PROGRESSO', 'panel-green' : tarefa.status == 'FINALIZADO'}" ng-repeat="tarefa in tarefas">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-9 text-left">
+                          <div style="float: right;"><button class="btn btn-default" ng-hide="tarefa.status == 'FINALIZADO'" ng-click="alterar(tarefa)"><span class="glyphicon glyphicon-pencil"></span></button></div>
                             <div>Titulo: {{tarefa.titulo}}</div>
                             <div>Descricao: {{tarefa.descricao}}</div>
                         </div>
@@ -40,15 +41,20 @@
                             <div>Prioridade: {{tarefa.prioridade}}</div>
                             <div>Status: {{tarefa.status}}</div>
                             <div>Custo: {{tarefa.custo}}</div>
-                            <div>
-                              <select class="form-control" ng-model="tarefa.responsavel.id" ng-options="colaborador.id as colaborador.nome for colaborador in colaboradores">
-                                <option value="{{colaborador.id}}">{{colaborador.nome}}</option>
-                              </select>
-                            </div>
                         </div>
-                        <div class="col-xs-9 text-right">
-                            <div>Data Inicio: {{tarefa.dataInicio}}</div>
-                            <div>Data Finalização: {{tarefa.dataFinalizacao}}</div>
+                        <div class="col-xs-9 text-center">
+                          <div>
+                            <select class="form-control" ng-model="tarefa.responsavel.id" ng-options="colaborador.id as colaborador.nome for colaborador in colaboradores" ng-change="editar(tarefa)" ng-disabled="servico.status == 'FINALIZADO'">
+                              <option value="{{colaborador.id}}">{{colaborador.nome}}</option>
+                            </select>
+                          </div>
+                          <div>
+                            <select class="form-control" ng-model="tarefa.status" ng-change="editar(tarefa)" ng-disabled="servico.status == 'FINALIZADO'">
+                              <option value="ABERTO">ABERTO</option>
+                              <option value="EM_PROGRESSO">EM PROGRESSO</option>
+                              <option value="FINALIZADO">FINALIZADO</option>
+                            </select>
+                          </div>
                         </div>
                     </div>
                 </div>

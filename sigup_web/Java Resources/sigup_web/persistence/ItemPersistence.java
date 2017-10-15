@@ -8,12 +8,15 @@ import javax.persistence.Query;
 
 import sigup_web.entidades.Compra;
 import sigup_web.entidades.ContasPagar;
+import sigup_web.entidades.ContasReceber;
 import sigup_web.entidades.Item;
 import sigup_web.entidades.ItemMontado;
 import sigup_web.entidades.ItemPeca;
 import sigup_web.entidades.ItemTarefa;
+import sigup_web.entidades.Ordem;
 import sigup_web.entidades.Peca;
 import sigup_web.entidades.PecaCompra;
+import sigup_web.entidades.Servico;
 import sigup_web.entidades.Tarefa;
 import sigup_web.util.ConexaoBanco;
 import sigup_web.util.GenericPersistence;
@@ -114,6 +117,5 @@ public class ItemPersistence extends GenericPersistence {
 			entityManager.close();
 		}
 	}
-	
 
 }

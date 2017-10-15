@@ -3,6 +3,7 @@ angular.module('app').controller('pecaController', function ($scope, $http, $roo
   $scope.peca = {};
   $scope.pecas = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarPecas = function(){
     $http.get($rootScope.url+"peca/listarTodos").then(function(response){
@@ -15,21 +16,23 @@ angular.module('app').controller('pecaController', function ($scope, $http, $roo
 $scope.listarPecas();
 
   $scope.salvar = function(){
-    if($scope.peca.id == undefined || $scope.peca.id == null){
-      $scope.peca.estoque = 0;
-      $http.post($rootScope.url+"peca/inserir", $scope.peca).then(function(response){
-        $scope.listarPecas();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"peca/alterar", $scope.peca).then(function(response){
-        $scope.listarPecas();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.peca.id == undefined || $scope.peca.id == null){
+        $scope.peca.estoque = 0;
+        $http.post($rootScope.url+"peca/inserir", $scope.peca).then(function(response){
+          $scope.listarPecas();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"peca/alterar", $scope.peca).then(function(response){
+          $scope.listarPecas();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -49,6 +52,7 @@ $scope.listarPecas();
   $scope.cancelar = function(){
     $scope.peca = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

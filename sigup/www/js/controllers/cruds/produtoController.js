@@ -3,6 +3,7 @@ angular.module('app').controller('produtoController', function ($scope, $http, $
   $scope.produto = {};
   $scope.produtos = [];
   $scope.form = true;
+  $scope.click = false;
 
   $scope.listarProdutos = function(){
     $http.get($rootScope.url+"produto/listarTodos").then(function(response){
@@ -15,20 +16,22 @@ angular.module('app').controller('produtoController', function ($scope, $http, $
 $scope.listarProdutos();
 
   $scope.salvar = function(){
-    if($scope.produto.id == undefined || $scope.produto.id == null){
-      $http.post($rootScope.url+"produto/inserir", $scope.produto).then(function(response){
-        $scope.listarProdutos();
-        $scope.cancelar();
-				}, function(erro){
-					console.log(erro);
-				});
-    }else{
-      $http.put($rootScope.url+"produto/alterar", $scope.produto).then(function(response){
-        $scope.listarProdutos();
-        $scope.cancelar();
-        }, function(erro){
-          console.log(erro);
-        });
+    if(!$scope.myform.$invalid){
+      if($scope.produto.id == undefined || $scope.produto.id == null){
+        $http.post($rootScope.url+"produto/inserir", $scope.produto).then(function(response){
+          $scope.listarProdutos();
+          $scope.cancelar();
+  				}, function(erro){
+  					console.log(erro);
+  				});
+      }else{
+        $http.put($rootScope.url+"produto/alterar", $scope.produto).then(function(response){
+          $scope.listarProdutos();
+          $scope.cancelar();
+          }, function(erro){
+            console.log(erro);
+          });
+      }
     }
   }
 
@@ -48,6 +51,7 @@ $scope.listarProdutos();
   $scope.cancelar = function(){
     $scope.produto = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });
