@@ -1,8 +1,9 @@
-angular.module('app').controller('compraController', function ($scope, $http, $rootScope){
+angular.module('app').controller('compraController', function ($scope, $http, $rootScope, Notification){
 
   $scope.compra = {};
   $scope.compra.pecaCompra = [];
   $scope.compras = [];
+  $scope.detalhes = {};
   $scope.pecaCompra = {};
   $scope.pecas = [];
   $scope.form = true;
@@ -38,7 +39,11 @@ $scope.listarCompras();
         $http.post($rootScope.url+"compra/inserir", $scope.compra).then(function(response){
           $scope.listarCompras();
           $scope.cancelar();
+          Notification.success({message: 'Compra efetuada com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
   				}, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
   					console.log(erro);
   				});
     }
@@ -59,6 +64,10 @@ $scope.listarCompras();
     $scope.compra = {};
     $scope.form = true;
     $scope.click = false;
+  }
+
+  $scope.verDetalhes = function(obj){
+    $scope.detalhes = obj;
   }
 
 });

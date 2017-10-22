@@ -1,4 +1,4 @@
-angular.module('app').controller('ordemController', function ($scope, $http, $rootScope, $location){
+angular.module('app').controller('ordemController', function ($scope, $http, $rootScope, $location, Notification){
 
   $scope.ordem = {};
   $scope.prioridades = [1,2,3,4,5];
@@ -23,16 +23,24 @@ $scope.listarProdutos();
         $scope.ordem.usuario = $rootScope.usuarioLogado.usuario;
       if($scope.ordem.id == undefined || $scope.ordem.id == null){
         $http.post($rootScope.url+"ordem/inserir", $scope.ordem).then(function(response){
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $location.path('/');
   				}, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+               positionY: 'bottom', positionX: 'right', delay: 3000});
   					console.log(erro);
   				});
       }else{
         $scope.ordem.dataCriacao = (new Date($scope.ordem.dataCriacao.split('/').splice(1, 1)[0]+" "+$scope.ordem.dataCriacao.split('/').splice(0, 1)[0]+" "+$scope.ordem.dataCriacao.split('/').splice(2, 2)[0])).getTime();
         $http.put($rootScope.url+"ordem/alterar", $scope.ordem).then(function(response){
         $rootScope.ordem = undefined;
+        Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
         $location.path('/');
           }, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
             console.log(erro);
           });
       }

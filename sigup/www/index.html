@@ -21,6 +21,7 @@
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/angular-ui-notification.min.css">
     <link href="css/angular-material.min.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
@@ -279,10 +280,10 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li>
+                        <li ng-show="usuarioLogado != undefined && usuarioLogado != null">
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Ordens</a>
                         </li>
-                        <li>
+                        <li ng-show="usuarioLogado != undefined && usuarioLogado != null && usuarioLogado.usuario.nivelAcesso != 'CLIENTE'">
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Cadastrar<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -315,7 +316,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                        <li ng-show="usuarioLogado != undefined && usuarioLogado != null && usuarioLogado.usuario.nivelAcesso != 'CLIENTE'">
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>Movimentos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -330,30 +331,78 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                        <li ng-show="usuarioLogado != undefined && usuarioLogado != null && usuarioLogado.usuario.nivelAcesso != 'CLIENTE'">
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                               <li>
-                                  <a href="estado">Estado</a>
-                              </li>
-                              <li>
-                                  <a href="cidade">Cidade</a>
-                              </li>
-                              <li>
-                                  <a href="produto">Produto</a>
-                              </li>
-                              <li>
-                                  <a href="modulo">Modulo</a>
-                              </li>
-                              <li>
-                                  <a href="colaborador">Colaborador</a>
-                              </li>
-                              <li>
-                                  <a href="empresa">Empresa</a>
-                              </li>
-                              <li>
-                                  <a href="cliente">Cliente</a>
-                              </li>
+                                    <a href="#">Relatórios Cadastrais <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                      <li>
+                                          <a>Colaborador</a>
+                                      </li>
+                                      <li>
+                                          <a>Empresa</a>
+                                      </li>
+                                      <li>
+                                          <a>Estado</a>
+                                      </li>
+                                      <li>
+                                          <a>Item</a>
+                                      </li>
+                                      <li>
+                                          <a>Peça</a>
+                                      </li>
+                                      <li>
+                                          <a>Modulos</a>
+                                      </li>
+                                      <li>
+                                          <a>Ordem</a>
+                                      </li>
+                                      <li>
+                                          <a>Produto</a>
+                                      </li>
+                                      <li>
+                                          <a>Serviço</a>
+                                      </li>
+                                      <li>
+                                          <a>Usuario</a>
+                                      </li>
+                                      <li>
+                                          <a>Tarefa</a>
+                                      </li>
+                                      <li>
+                                          <a>Cliente</a>
+                                      </li>
+                                      <li>
+                                          <a>Cidade</a>
+                                      </li>
+                                      <li>
+                                          <a>Compra</a>
+                                      </li>
+                                      <li>
+                                          <a>Contas a Pagar</a>
+                                      </li>
+                                      <li>
+                                          <a>Contas a Receber</a>
+                                      </li>
+                                      <li>
+                                          <a>Itens Montados</a>
+                                      </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
+                                </li>
+                                <li>
+                                      <a href="#">Relatórios Gerenciais <span class="fa arrow"></span></a>
+                                      <ul class="nav nav-third-level">
+                                        <li>
+                                            <a>Produto com maior número de serviços abertos</a>
+                                        </li>
+                                        <li>
+                                            <a>Produto com maior número de colaboradores</a>
+                                        </li>
+                                      </ul>
+                                      <!-- /.nav-third-level -->
+                                  </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -398,6 +447,7 @@
     <script src="js/app.js"></script>
     <script src="js/lib/angular-input-masks-standalone.min.js"></script>
     <script src="js/lib/angular-locale_pt-br.js"></script>
+    <script src="js/lib/angular-ui-notification.min.js"></script>
 
     <!-- Controllers -->
     <script src="js/controllers/dashboardController.js"></script>

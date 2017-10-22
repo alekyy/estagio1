@@ -1,4 +1,4 @@
-angular.module('app').controller('itemController', function ($scope, $http, $rootScope){
+angular.module('app').controller('itemController', function ($scope, $http, $rootScope, Notification){
 
   $scope.item = {};
   $scope.item.itemPeca = [];
@@ -33,15 +33,23 @@ $scope.listarItens();
         $http.post($rootScope.url+"item/inserir", $scope.item).then(function(response){
           $scope.listarItens();
           $scope.cancelar();
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
   				}, function(erro){
   					console.log(erro);
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+               positionY: 'bottom', positionX: 'right', delay: 3000});
   				});
       }else{
         $http.put($rootScope.url+"item/alterar", $scope.item).then(function(response){
           $scope.listarItens();
           $scope.cancelar();
+          Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           }, function(erro){
             console.log(erro);
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
           });
       }
     }
@@ -55,8 +63,12 @@ $scope.listarItens();
   $scope.excluir = function(id){
       $http.delete($rootScope.url+"item/excluir/"+id).then(function(response){
         $scope.listarItens();
+        Notification.success({message: 'Registro excluido com sucesso!',
+         positionY: 'bottom', positionX: 'right', delay: 3000});
       }, function(erro){
     					console.log(erro);
+              Notification.error({message: 'Ocorreu um erro ao tentar excluir o registro.',
+          positionY: 'bottom', positionX: 'right', delay: 3000});
     	});
   }
 
@@ -75,6 +87,7 @@ $scope.listarItens();
   $scope.cancelar = function(){
     $scope.item = {};
     $scope.form = true;
+    $scope.click = false;
   }
 
 });

@@ -39,7 +39,11 @@ angular.module('app').controller('servicoVisaoController', function ($scope, $lo
           response.data.dataInicio = $scope.formatarData(response.data.dataInicio);
           response.data.dataTermino = $scope.formatarData(response.data.dataTermino);
           $scope.servico = response.data;
+          Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
             }, function(erro){
+              Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
               console.log(erro);
             });
       }

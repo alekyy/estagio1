@@ -1,4 +1,4 @@
-angular.module('app').controller('cidadeController', function ($scope, $http, $rootScope){
+angular.module('app').controller('cidadeController', function ($scope, $http, $rootScope, Notification){
 
   $scope.cidade = {};
   $scope.cidades = [];
@@ -29,16 +29,24 @@ $scope.listarCidades();
     if(!$scope.myform.$invalid){
       if($scope.cidade.id == undefined || $scope.cidade.id == null){
         $http.post($rootScope.url+"cidade/inserir", $scope.cidade).then(function(response){
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarCidades();
           $scope.cancelar();
   				}, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
   					console.log(erro);
   				});
       }else{
         $http.put($rootScope.url+"cidade/alterar", $scope.cidade).then(function(response){
+          Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarCidades();
           $scope.cancelar();
           }, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
             console.log(erro);
           });
       }
@@ -53,8 +61,12 @@ $scope.listarCidades();
   $scope.excluir = function(id){
       $http.delete($rootScope.url+"cidade/excluir/"+id).then(function(response){
         $scope.listarCidades();
+        Notification.success({message: 'Registro excluido com sucesso!',
+         positionY: 'bottom', positionX: 'right', delay: 3000});
       }, function(erro){
-    					console.log(erro);
+    			console.log(erro);
+          Notification.error({message: 'Ocorreu um erro ao tentar excluir o registro.',
+          positionY: 'bottom', positionX: 'right', delay: 3000});
     	});
   }
 

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produto_com_mais_colaboradores_subreport1" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6e0ab9c3-77ae-4047-a200-f4bcb9588653">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idproduto" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+    colaborador.*, produto.idproduto
+FROM
+     `colaborador` colaborador INNER JOIN `tarefa` tarefa ON colaborador.`idcolaborador` = tarefa.`idresponsavel`
+     INNER JOIN `servico` servico ON tarefa.`idservico` = servico.`idservico`
+     INNER JOIN `ordem` ordem ON servico.`idordem` = ordem.`idordem`
+     INNER JOIN `produto` produto ON ordem.`idproduto` = produto.`idproduto`
+     WHERE tarefa.status = 'FINALIZADO' AND produto.idproduto = $P{idproduto} group by colaborador.nome;]]>
+	</queryString>
+	<field name="idcolaborador" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cep" class="java.lang.String">
+		<fieldDescription><![CDATA[Cep do colaborador.]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[Documento CPF do colaborador.]]></fieldDescription>
+	</field>
+	<field name="dataNascimento" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[Data em que o colaborador nasceu.]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[Endereço de onde o colaborador reside.]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[Nome do colaborador.]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Numero da residencia do colaborador.]]></fieldDescription>
+	</field>
+	<field name="telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[Telefone do colaborador.]]></fieldDescription>
+	</field>
+	<field name="idcidade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Chave estangeira que liga o colaborador a uma cidade.]]></fieldDescription>
+	</field>
+	<field name="idusuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Chave estrangeira que liga o colaborador ao seu usuario de acesso.]]></fieldDescription>
+	</field>
+	<field name="idproduto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="238" height="30" uuid="2db521d2-16ff-4dcc-ba67-acc377d34a53"/>
+				<text><![CDATA[Colaborador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="0" width="182" height="30" uuid="135ac63e-9428-433c-a192-824b24a39685"/>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="135" height="30" uuid="5984e578-a744-40f0-8a81-35ac75c62829"/>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="238" height="40" uuid="a4d49363-8247-4766-b54b-7ec7023fd2fb"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="0" width="182" height="40" uuid="3fefee97-6d7a-41da-8251-82e165b30374"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="135" height="40" uuid="448b4068-bcad-43ae-9a68-bfcc6d0d78b0"/>
+				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -16,11 +16,51 @@
       <td>
         <div class="button-bar">
           <button class="btn btn-default" ng-click="montarItem(obj)">Montar Item</button>
+          <button class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="listarItensMontados(obj)">Ver Historico</button>
         </div>
       </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Historico de Montagem</h4>
+            </div>
+            <div class="modal-body">
+              <div>Item: {{historico.nome}}.</div>
+              <div>{{historico.descricao}}.</div>
+              <div>Valor: {{historico.valor}}.</div>
+              <br>
+              <table class="table">
+              <thead>
+                <tr>
+                  <th>Responsavél pelo Montagem</th>
+                  <th>Data da Montagem</th>
+                  <th>Total de Itens Montadas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="obj in itensMontados">
+                  <th scope="row">{{obj.responsavel.nome}}</td>
+                    <td>{{obj.dataMontagem}}</td>
+                  <td>{{obj.quantidade}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 
 

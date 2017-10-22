@@ -13,9 +13,53 @@
       <th scope="row">{{obj.descricao}}</td>
       <td>{{obj.dataCompra}}</td>
       <td>{{obj.valor}}</td>
+      <td>
+          <button class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="verDetalhes(obj)">Ver Detalhes</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Detalhes da Compra</h4>
+            </div>
+            <div class="modal-body">
+              <div>{{detalhes.descricao}}.</div>
+              <div>Compra feita pelo usuario {{detalhes.usuario.login}}.</div>
+              <br>
+              <table class="table">
+              <thead>
+                <tr>
+                  <th>Peça</th>
+                  <th>Valor</th>
+                  <th>Quantidade Comprada</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="obj in detalhes.pecaCompra">
+                  <th scope="row">{{obj.peca.nome}}</td>
+                  <td>{{obj.peca.valor}}</td>
+                  <td>{{obj.quantidade}}</td>
+                  <td>{{obj.peca.valor * obj.quantidade}}</td>
+                </tr>
+              </tbody>
+            </table>
+              <p class="titulo">Valor total da compra: {{detalhes.valor}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
   <form ng-hide="form" name="myform" novalidate>
 

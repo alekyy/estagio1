@@ -1,4 +1,4 @@
-angular.module('app').controller('tarefaController', function ($scope, $http, $rootScope, $location){
+angular.module('app').controller('tarefaController', function ($scope, $http, $rootScope, $location, Notification){
 
   $scope.servico = $rootScope.servico;
   $scope.tarefa = {};
@@ -20,15 +20,23 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
         $scope.tarefa.servico.id = $rootScope.servico.id;
       if($scope.tarefa.id == undefined || $scope.tarefa.id == null){
         $http.post($rootScope.url+"tarefa/inserir", $scope.tarefa).then(function(response){
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $location.path('/servicosLista');
   				}, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+               positionY: 'bottom', positionX: 'right', delay: 3000});
   					console.log(erro);
   				});
       }else{
         $http.put($rootScope.url+"tarefa/alterar", $scope.tarefa).then(function(response){
         $rootScope.tarefa = undefined;
+        Notification.success({message: 'Registro alterado com sucesso!',
+          positionY: 'bottom', positionX: 'right', delay: 3000});
         $location.path('/servicosLista');
           }, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
             console.log(erro);
           });
       }

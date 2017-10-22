@@ -1,4 +1,4 @@
-angular.module('app').controller('clienteController', function ($scope, $http, $rootScope){
+angular.module('app').controller('clienteController', function ($scope, $http, $rootScope, Notification){
 
   $scope.cliente = {};
   $scope.clientes = [];
@@ -28,16 +28,24 @@ $scope.listarClientes();
     if(!$scope.myform.$invalid){
       if($scope.cliente.id == undefined || $scope.cliente.id == null){
         $http.post($rootScope.url+"cliente/inserir", $scope.cliente).then(function(response){
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarClientes();
           $scope.cancelar();
   				}, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
   					console.log(erro);
   				});
       }else{
         $http.put($rootScope.url+"cliente/alterar", $scope.cliente).then(function(response){
+          Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarClientes();
           $scope.cancelar();
           }, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
             console.log(erro);
           });
       }
@@ -52,8 +60,12 @@ $scope.listarClientes();
   $scope.excluir = function(id){
       $http.delete($rootScope.url+"cliente/excluir/"+id).then(function(response){
         $scope.listarClientes();
+        Notification.success({message: 'Registro excluido com sucesso!',
+         positionY: 'bottom', positionX: 'right', delay: 3000});
       }, function(erro){
     					console.log(erro);
+              Notification.error({message: 'Ocorreu um erro ao tentar excluir o registro.',
+          positionY: 'bottom', positionX: 'right', delay: 3000});
     	});
   }
 

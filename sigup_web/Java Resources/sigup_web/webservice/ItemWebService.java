@@ -63,6 +63,19 @@ public class ItemWebService{
 		}
 	}
 	
+	@Path("/itensMontados/{idItem}")
+	@GET
+	@Produces("application/json")
+	public List<ItemMontado> itensMontados(@PathParam("idItem") Integer idItem){
+		try{
+			List<ItemMontado>listaItemMontado = persistence.listarComCondicao(ItemMontado.class, "idItem = " + idItem);
+			return listaItemMontado;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new WebApplicationException(500);
+		}
+	}
+	
 	@Path("/listarItensPossiveis")
 	@POST
 	@Consumes("application/json")

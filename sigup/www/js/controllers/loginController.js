@@ -8,6 +8,14 @@ angular.module('app').controller('loginController', function ($scope, $http, $ro
         window.localStorage.setItem('usuarioLogado', JSON.stringify(response.data[0]));
         $location.path('/');
         }, function(erro){
+          if(erro.status == 401){
+            Notification.error({message: 'Login ou senha incorretos.',
+               positionY: 'bottom', positionX: 'right', delay: 3000});
+          }
+             else{
+               Notification.error({message: 'Ocorreu um erro na autenticação, por favor tente novamente.',
+               positionY: 'bottom', positionX: 'right', delay: 3000});
+             }
           console.log(erro);
         });
     }

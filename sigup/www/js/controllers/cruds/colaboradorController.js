@@ -1,4 +1,4 @@
-angular.module('app').controller('colaboradorController', function ($scope, $http, $rootScope){
+angular.module('app').controller('colaboradorController', function ($scope, $http, $rootScope, Notification){
 
   $scope.colaborador = {};
   $scope.colaboradores = [];
@@ -29,16 +29,24 @@ $scope.listarColaboradores();
     if(!$scope.myform.$invalid){
       if($scope.colaborador.id == undefined || $scope.colaborador.id == null){
         $http.post($rootScope.url+"colaborador/inserir", $scope.colaborador).then(function(response){
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarColaboradores();
           $scope.cancelar();
   				}, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
   					console.log(erro);
   				});
       }else{
         $http.put($rootScope.url+"colaborador/alterar", $scope.colaborador).then(function(response){
+          Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarColaboradores();
           $scope.cancelar();
           }, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
             console.log(erro);
           });
       }
@@ -57,8 +65,12 @@ $scope.listarColaboradores();
   $scope.excluir = function(id){
       $http.delete($rootScope.url+"colaborador/excluir/"+id).then(function(response){
         $scope.listarColaboradores();
+        Notification.success({message: 'Registro excluido com sucesso!',
+         positionY: 'bottom', positionX: 'right', delay: 3000});
       }, function(erro){
     					console.log(erro);
+              Notification.error({message: 'Ocorreu um erro ao tentar excluir o registro.',
+          positionY: 'bottom', positionX: 'right', delay: 3000});
     	});
   }
 

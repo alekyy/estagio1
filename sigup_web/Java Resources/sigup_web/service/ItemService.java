@@ -64,12 +64,13 @@ public class ItemService
 
 	}
 	
-	public void montarItens(ItemMontado itemMontado) throws Exception{
+	public Response montarItens(ItemMontado itemMontado) throws Exception{
 		if(verificarItensDisponiveisParaMontagem(itemMontado.getItem()) >= itemMontado.getQuantidade()){
 			itemMontado.setDataMontagem(new Date());
 			persistence.montarItens(itemMontado);
+			return Response.status(200).build();
 		}else
-			throw new WebApplicationException(500);
+			return Response.status(401).entity("Estoque insuficiente.").build();
 			
 	}
 	

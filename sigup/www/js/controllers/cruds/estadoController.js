@@ -1,4 +1,4 @@
-angular.module('app').controller('estadoController', function ($scope, $http, $rootScope){
+angular.module('app').controller('estadoController', function ($scope, $http, $rootScope, Notification){
 
   $scope.estado = {};
   $scope.estados = [];
@@ -21,14 +21,22 @@ $scope.listarEstados();
         $http.post($rootScope.url+"estado/inserir", $scope.estado).then(function(response){
           $scope.listarEstados();
           $scope.cancelar();
+          Notification.success({message: 'Cadastro efetuado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
   				}, function(erro){
   					console.log(erro);
+            Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
   				});
       }else{
         $http.put($rootScope.url+"estado/alterar", $scope.estado).then(function(response){
+          Notification.success({message: 'Registro alterado com sucesso!',
+           positionY: 'bottom', positionX: 'right', delay: 3000});
           $scope.listarEstados();
           $scope.cancelar();
           }, function(erro){
+            Notification.error({message: 'Ocorreu um erro ao tentar alterar o registro.',
+             positionY: 'bottom', positionX: 'right', delay: 3000});
             console.log(erro);
           });
       }
@@ -43,8 +51,12 @@ $scope.listarEstados();
   $scope.excluir = function(id){
       $http.delete($rootScope.url+"estado/excluir/"+id).then(function(response){
         $scope.listarEstados();
+        Notification.success({message: 'Registro excluido com sucesso!',
+         positionY: 'bottom', positionX: 'right', delay: 3000});
       }, function(erro){
     					console.log(erro);
+              Notification.error({message: 'Ocorreu um erro ao tentar excluir o registro.',
+          positionY: 'bottom', positionX: 'right', delay: 3000});
     	});
   }
 

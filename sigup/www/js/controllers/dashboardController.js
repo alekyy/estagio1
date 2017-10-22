@@ -1,6 +1,11 @@
-angular.module('app').controller('dashboardController', function ($scope, $location, $http, $rootScope){
+angular.module('app').controller('dashboardController', function ($scope, $location, $http, $rootScope, $window, $sce){
 
   $rootScope.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
+
+  if($rootScope.usuarioLogado == undefined || $rootScope.usuarioLogado == null)
+      $location.path('/login');
+
+      console.log($scope.usuarioLogado);
 
   $scope.ordensAbertas = [];
   $scope.ordensProgresso = [];
@@ -9,6 +14,7 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
   $scope.listaDeOrdens = true;
   $scope.filtro = "";
   $scope.listaOrdens = [];
+  if($rootScope.usuarioLogado != undefined && $rootScope.usuarioLogado != null)
   $scope.usuarioLogado = $rootScope.usuarioLogado.usuario;
   $rootScope.ordem = undefined;
 
@@ -106,5 +112,15 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
       $scope.listarOrdensEmAberto();
       $scope.listarOrdensEmProgresso();
       $scope.listarOrdensFinalizadas();
+
+      $scope.gerarRelatorio = function(){
+        $http.get($rootScope.url+"relatorio/gerarRelatorio", { responseType: 'arraybuffer'}).then(function(response){
+          var file = new Blob([(response.data)], {type: 'application/pdf'});
+           var fileURL = URL.createObjectURL(file);
+           window.open(fileURL);
+          }, function(erro){
+            console.log(erro);
+          });
+      }
 
 });

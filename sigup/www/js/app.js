@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial', 'ui.utils.masks']);
+var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial', 'ui.utils.masks', 'ui-notification']);
 
 app.config(function($routeProvider, $locationProvider){
 
