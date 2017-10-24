@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produto_com_mais_servicos_abertos_subreport1" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="37d7cd73-89e7-4df8-9334-3141b0ade045">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idproduto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     servico.`idservico` AS servico_idservico,
+     servico.`dataInicio` AS servico_dataInicio,
+     servico.`dataTermino` AS servico_dataTermino,
+     servico.`descricao` AS servico_descricao,
+     servico.`prioridade` AS servico_prioridade,
+     servico.`status` AS servico_status,
+     servico.`titulo` AS servico_titulo,
+     servico.`idordem` AS servico_idordem,
+     ordem.`idordem` AS ordem_idordem,
+     ordem.`dataCriacao` AS ordem_dataCriacao,
+     ordem.`dataFinalizacao` AS ordem_dataFinalizacao,
+     ordem.`descricao` AS ordem_descricao,
+     ordem.`prioridade` AS ordem_prioridade,
+     ordem.`status` AS ordem_status,
+     ordem.`tipoOrdem` AS ordem_tipoOrdem,
+     ordem.`titulo` AS ordem_titulo,
+     ordem.`idproduto` AS ordem_idproduto,
+     ordem.`idusuario` AS ordem_idusuario
+FROM
+     `ordem` ordem INNER JOIN `servico` servico ON ordem.`idordem` = servico.`idordem`
+WHERE ordem.idproduto = $P{idproduto}]]>
+	</queryString>
+	<field name="servico_idservico" class="java.lang.Integer"/>
+	<field name="servico_dataInicio" class="java.sql.Timestamp"/>
+	<field name="servico_dataTermino" class="java.sql.Timestamp"/>
+	<field name="servico_descricao" class="java.lang.String"/>
+	<field name="servico_prioridade" class="java.lang.Integer"/>
+	<field name="servico_status" class="java.lang.String"/>
+	<field name="servico_titulo" class="java.lang.String"/>
+	<field name="servico_idordem" class="java.lang.Integer"/>
+	<field name="ordem_idordem" class="java.lang.Integer"/>
+	<field name="ordem_dataCriacao" class="java.sql.Timestamp"/>
+	<field name="ordem_dataFinalizacao" class="java.sql.Timestamp"/>
+	<field name="ordem_descricao" class="java.lang.String"/>
+	<field name="ordem_prioridade" class="java.lang.Integer"/>
+	<field name="ordem_status" class="java.lang.String"/>
+	<field name="ordem_tipoOrdem" class="java.lang.String"/>
+	<field name="ordem_titulo" class="java.lang.String"/>
+	<field name="ordem_idproduto" class="java.lang.Integer"/>
+	<field name="ordem_idusuario" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="300" y="2" width="118" height="41" uuid="14cde6a3-cc3b-4c8f-8686-86dcd349ce4e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Prioridade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="0" width="122" height="43" uuid="a21a2d08-75ce-4f66-a68e-78d9950cd625"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Data de Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="2" width="137" height="41" uuid="1dc9d235-75fb-4499-8de9-691939d04c9c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="178" height="41" uuid="376ed5de-f39c-4c01-8dcb-fa1ce3fa51bd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Serviço Titulo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="300" y="0" width="118" height="37" uuid="4f30e951-3b39-4d42-87ee-11760c4abb62"/>
+				<textFieldExpression><![CDATA[$F{servico_prioridade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="0" width="122" height="37" uuid="f84ce988-5206-4404-a8a7-e0873428ea6e"/>
+				<textFieldExpression><![CDATA[$F{servico_dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="137" height="37" uuid="223f0be2-7b2c-44d4-b0d8-667ca9a64587"/>
+				<textFieldExpression><![CDATA[$F{servico_status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="178" height="37" uuid="2017bb3f-3b1d-4ac4-b144-7b8090b79b73"/>
+				<textFieldExpression><![CDATA[$F{servico_titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

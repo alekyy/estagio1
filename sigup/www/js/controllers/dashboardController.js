@@ -113,14 +113,4 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
       $scope.listarOrdensEmProgresso();
       $scope.listarOrdensFinalizadas();
 
-      $scope.gerarRelatorio = function(){
-        $http.get($rootScope.url+"relatorio/gerarRelatorio", { responseType: 'arraybuffer'}).then(function(response){
-          var file = new Blob([(response.data)], {type: 'application/pdf'});
-           var fileURL = URL.createObjectURL(file);
-           window.open(fileURL);
-          }, function(erro){
-            console.log(erro);
-          });
-      }
-
 });

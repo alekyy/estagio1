@@ -4,6 +4,10 @@ body{background: #eee url(http://subtlepatterns.com/patterns/sativa.png);}
    font-size: 20px;
 }
 
+.bgmodal{
+  background: #eee url(http://subtlepatterns.com/patterns/sativa.png);
+}
+
 .required{
   border-color: red;
 }

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="compra" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="087a10f1-f410-4cea-a0f4-091155402b2b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     compra.`id` AS compra_id,
+     compra.`dataCompra` AS compra_dataCompra,
+     compra.`descricao` AS compra_descricao,
+     compra.`valor` AS compra_valor,
+     compra.`idusuario` AS compra_idusuario,
+     pecacompra.`id` AS pecacompra_id,
+     pecacompra.`quantidade` AS pecacompra_quantidade,
+     pecacompra.`idpeca` AS pecacompra_idpeca,
+     pecacompra.`idPecaCompra` AS pecacompra_idPecaCompra,
+     usuario.`idusuario` AS usuario_idusuario,
+     usuario.`login` AS usuario_login,
+     usuario.`nivelAcesso` AS usuario_nivelAcesso,
+     usuario.`senha` AS usuario_senha,
+     peca.`id` AS peca_id,
+     peca.`estoque` AS peca_estoque,
+     peca.`nome` AS peca_nome,
+     peca.`valor` AS peca_valor,
+     peca.`idpeca` AS peca_idpeca
+FROM
+     `compra` compra INNER JOIN `pecacompra` pecacompra ON compra.`id` = pecacompra.`idPecaCompra`
+     INNER JOIN `usuario` usuario ON compra.`idusuario` = usuario.`idusuario`
+     INNER JOIN `peca` peca ON pecacompra.`idpeca` = peca.`id`]]>
+	</queryString>
+	<field name="compra_descricao" class="java.lang.String"/>
+	<field name="compra_dataCompra" class="java.sql.Timestamp"/>
+	<field name="compra_valor" class="java.lang.Double"/>
+	<field name="peca_nome" class="java.lang.String"/>
+	<field name="pecacompra_quantidade" class="java.lang.Integer"/>
+	<field name="usuario_login" class="java.lang.String"/>
+	<group name="compra_dataCompra">
+		<groupExpression><![CDATA[$F{compra_dataCompra}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="5bec7079-f775-4a34-a4d7-ec6a1516227d"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<text><![CDATA[Compra:]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="45d33586-48f8-4798-8b8d-24858c1f4478"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{compra_descricao}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="df989066-5dfc-481f-936e-40dc001b96bc"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="bc2512f0-9904-413d-a119-8ca63114c2c2"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="17417aaf-87dd-43fc-8823-e8f6d64dbfb0"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Compra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="abfffad8-7e39-42bd-90f1-374413040fc5"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Relatório de Compras]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="6bcd42e7-18a7-4525-aaa5-61d1df06c741"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f0276856-30b0-425a-8702-bd32efaeeed7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="123" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f8e0229f-28df-47b1-9b0f-4f16c6df82c9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="234" y="0" width="153" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e06c7e5d-753c-4be1-965d-e8cb8379b378"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome da Peça]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="387" y="0" width="88" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3d2bd2e2-48c9-451c-98b1-8cfdc5ec43af"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade de Peça]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="475" y="0" width="80" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ec9792fb-0b09-4837-9d34-afa4f05d6567"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="151caa9b-bfb3-4ef4-b861-9531a0d8b5cd"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="111" height="20" uuid="5e671f54-70a8-402e-a64b-d26fdf149a0a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_dataCompra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="111" y="0" width="123" height="20" uuid="d2afd387-9200-4968-8012-b1bb08aae276"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_valor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="234" y="0" width="153" height="20" uuid="6409dd6c-7f90-495b-bd45-9af6350000c5"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{peca_nome}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="387" y="0" width="88" height="20" uuid="2b637894-1df0-4574-ad63-30ed40612edf"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pecacompra_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="475" y="0" width="80" height="20" uuid="6628eefe-0017-499c-8e58-b31a96a1494f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario_login}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="831abd9d-019b-4738-b1ad-de376df00699"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="6ef45d2a-494d-4a49-a915-93da057b43b5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="6b8fa696-da12-44d9-bec6-52f22441d02b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -14,7 +14,7 @@ FROM
      INNER JOIN `servico` servico ON tarefa.`idservico` = servico.`idservico`
      INNER JOIN `ordem` ordem ON servico.`idordem` = ordem.`idordem`
      INNER JOIN `produto` produto ON ordem.`idproduto` = produto.`idproduto`
-     WHERE tarefa.status = 'FINALIZADO' group by produto.nome]]>
+     WHERE tarefa.status = 'FINALIZADO' order by 'Número de Colaboradores' DESC]]>
 	</queryString>
 	<field name="Número de Colaboradores" class="java.lang.Long"/>
 	<field name="nome" class="java.lang.String">
