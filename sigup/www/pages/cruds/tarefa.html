@@ -38,7 +38,7 @@
 <div ng-hide="tarefa.id != undefined && tarefa.id != null">
       <p class="titulo">Item Tarefa</p>
       <div ng-repeat="(index, itemTarefa) in tarefa.itemTarefa">
-        <p>{{itemTarefa.item.nome}}, Garantia : {{itemTarefa.garantia}}, Quantidade: {{itemTarefa.quantidade}} <span ng-click="removerItem(itemTarefa, index)" class="glyphicon glyphicon-trash"></span></p>
+        <p>{{itemTarefa.item.nome}}, Quantidade: {{itemTarefa.quantidade}} <span ng-click="removerItem(itemTarefa, index)" class="glyphicon glyphicon-trash"></span></p>
       </div>
 
       <div class="form-group row">
@@ -59,9 +59,9 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-2 col-form-label">Quantidade de Itens</label>
+        <label class="col-2 col-form-label">Quantidade de Itens. (Quantidade disponível: {{itemTarefa.item.estoque}})</label>
         <div class="col-10">
-          <input class="form-control" type="text" ng-model="itemTarefa.quantidade" ng-class="{'required' : itemTarefa.quantidade == undefined && clickItem == true}">
+          <input class="form-control" type="text" ng-model="itemTarefa.quantidade" ng-class="{'required' : itemTarefa.quantidade == undefined && clickItem == true}" ui-number-mask="0" ui-hide-group-sep>
         </div>
       </div>
 

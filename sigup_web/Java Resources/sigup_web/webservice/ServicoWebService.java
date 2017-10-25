@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import sigup_web.entidades.ContasReceber;
 import sigup_web.entidades.Servico;
 import sigup_web.service.ServicoService;
 import sigup_web.util.GenericPersistence;
@@ -122,8 +123,8 @@ public class ServicoWebService{
 			Servico servico = (Servico) persistence.listarComCondicao(Servico.class, "ordem.id = " + idOrdem).iterator().next();
 			return Response.status(200).entity(servico).build();
 		}catch(Exception e){
-			//e.printStackTrace();
-			return Response.status(404).build();
+			e.printStackTrace();
+			return Response.status(500).build();
 		}
 	}
 	

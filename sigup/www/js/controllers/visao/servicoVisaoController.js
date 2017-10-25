@@ -1,4 +1,8 @@
-angular.module('app').controller('servicoVisaoController', function ($scope, $location, $http, $rootScope){
+angular.module('app').controller('servicoVisaoController', function (Notification, $scope, $location, $http, $rootScope){
+
+      $scope.contasReceber = {};
+      $scope.tarefaSelec = true;
+      $scope.tarefaSelecionada = {};
 
       $scope.formatarData = function(data){
         var date = new Date(data);
@@ -52,6 +56,22 @@ angular.module('app').controller('servicoVisaoController', function ($scope, $lo
         $rootScope.tarefa = tarefa;
         $location.path('/tarefa');
       }
+
+      $scope.buscarContasReceber = function(){
+        $http.get($rootScope.url+"contasReceber/buscarContasReceber/" + $scope.servico.id).then(function(response){
+      			$scope.contasReceber = response.data;
+            $scope.contasReceber.dataLancamento = $scope.formatarData($scope.contasReceber.dataLancamento);
+            $scope.contasReceber.dataVencimento = $scope.formatarData($scope.contasReceber.dataVencimento);
+      		}, function(erro){
+      			console.log(erro);
+      		});
+      }
+
+      $scope.selecionarTarefa = function(tarefa){
+        $scope.tarefaSelecionada = tarefa;
+        $scope.tarefaSelec = false;
+      }
+
 
       $scope.buscarTarefas();
       $scope.listarColaboradores();

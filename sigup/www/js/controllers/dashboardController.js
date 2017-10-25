@@ -5,8 +5,6 @@ angular.module('app').controller('dashboardController', function ($scope, $locat
   if($rootScope.usuarioLogado == undefined || $rootScope.usuarioLogado == null)
       $location.path('/login');
 
-      console.log($scope.usuarioLogado);
-
   $scope.ordensAbertas = [];
   $scope.ordensProgresso = [];
   $scope.ordensFinalizadas = [];

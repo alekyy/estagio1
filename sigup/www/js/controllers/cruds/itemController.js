@@ -86,6 +86,8 @@ $scope.listarItens();
 
   $scope.cancelar = function(){
     $scope.item = {};
+    $scope.item.itemPeca = [];
+    $scope.itemPeca = {};
     $scope.form = true;
     $scope.click = false;
   }

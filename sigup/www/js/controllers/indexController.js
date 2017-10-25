@@ -5,9 +5,13 @@ angular.module('app').controller('indexController', function ($scope, $location,
   $scope.header = "";
   $scope.relatorio = "";
 
+  console.log($rootScope.usuarioLogado);
+  if($rootScope.usuarioLogado == undefined || $rootScope.usuarioLogado == null)
+      $location.path('/login');
+
   $scope.logout = function(){
     window.localStorage.removeItem('usuarioLogado');
-    $route.reload();
+    $location.path('/login');
   }
 
   $scope.definirRelatorio = function(header, relatorio){

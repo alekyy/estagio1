@@ -52,34 +52,39 @@ $scope.listarItens();
 
 $scope.inserirNovosItens = function(){
   if(!$scope.myform.$invalid){
-    $scope.itemMontado.item = $scope.item;
-    $scope.itemMontado.responsavel = $rootScope.usuarioLogado;
-    $http.post($rootScope.url+"item/montarItem", $scope.itemMontado).then(function(response){
-      $scope.listarItens();
-      $scope.listarPecas();
-      $scope.panel = true;
-      $scope.item = {};
-      $scope.itemMontado = {};
-      Notification.success({message: 'Item montado com sucesso!',
+    if($scope.itemMontado.quantidade > $scope.itensPossiveis){
+        Notification.error({message: 'Estoque insuficiente para montar a quantidade desejada de itens.',
            positionY: 'bottom', positionX: 'right', delay: 3000});
-      }, function(erro){
-        if(erro.status == 401){
-          Notification.error({message: 'Estoque insuficiente para montar a quantidade desejada de itens.',
-             positionY: 'bottom', positionX: 'right', delay: 3000});
-        }
-           else{
-             Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
-             positionY: 'bottom', positionX: 'right', delay: 3000});
-           }
-        console.log(erro);
-      });
+      }else{
+        $scope.itemMontado.item = $scope.item;
+        $scope.itemMontado.responsavel = $rootScope.usuarioLogado;
+        $http.post($rootScope.url+"item/montarItem", $scope.itemMontado).then(function(response){
+          $scope.listarItens();
+          $scope.listarPecas();
+          $scope.panel = true;
+          $scope.item = {};
+          $scope.itemMontado = {};
+          Notification.success({message: 'Item montado com sucesso!',
+               positionY: 'bottom', positionX: 'right', delay: 3000});
+          }, function(erro){
+            if(erro.status == 401){
+              Notification.error({message: 'Estoque insuficiente para montar a quantidade desejada de itens.',
+                 positionY: 'bottom', positionX: 'right', delay: 3000});
+            }
+               else{
+                 Notification.error({message: 'Ocorreu um erro ao tentar inserir o registro.',
+                 positionY: 'bottom', positionX: 'right', delay: 3000});
+               }
+            console.log(erro);
+          });
+          $scope.click = false;
+          }
+    }
   }
-}
 
 
   $scope.montarItem = function(obj){
     $scope.item = obj;
-    console.log($scope.item);
     $scope.listarItensPossiveis($scope.item);
     $scope.panel = false;
   }

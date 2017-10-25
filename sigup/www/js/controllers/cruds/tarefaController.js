@@ -17,7 +17,7 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
   $scope.salvar = function(){
     if(!$scope.myform.$invalid){
       if($scope.tarefa.servico.id == undefined || $scope.tarefa.servico.id == null)
-        $scope.tarefa.servico.id = $rootScope.servico.id;
+        $scope.tarefa.servico.id = $scope.servico.id;
       if($scope.tarefa.id == undefined || $scope.tarefa.id == null){
         $http.post($rootScope.url+"tarefa/inserir", $scope.tarefa).then(function(response){
           Notification.success({message: 'Cadastro efetuado com sucesso!',
@@ -74,9 +74,16 @@ angular.module('app').controller('tarefaController', function ($scope, $http, $r
   }
 
   $scope.adicionarItem = function(){
-    if($scope.itemTarefa.item != undefined && $scope.itemTarefa.item.quantidade != undefined && $scope.itemTarefa.item.garantia != undefined){
-      $scope.tarefa.itemTarefa.push($scope.itemTarefa);
-      $scope.itemTarefa = undefined;
+    if($scope.itemTarefa.item != undefined && $scope.itemTarefa.quantidade != undefined && $scope.itemTarefa.garantia != undefined){
+      if($scope.itemTarefa.quantidade > $scope.itemTarefa.item.estoque || $scope.itemTarefa.quantidade <= 0){
+        Notification.error({message: 'Quantidade de itens invalida.',
+         positionY: 'bottom', positionX: 'right', delay: 3000});
+      }else{
+        $scope.itemTarefa.item.estoque = $scope.itemTarefa.item.estoque - $scope.itemTarefa.quantidade;
+        $scope.clickItem = false;
+        $scope.tarefa.itemTarefa.push($scope.itemTarefa);
+        $scope.itemTarefa = undefined;
+      }
     }
   }
 

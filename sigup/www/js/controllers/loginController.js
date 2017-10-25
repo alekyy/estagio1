@@ -1,6 +1,10 @@
-angular.module('app').controller('loginController', function ($scope, $http, $rootScope, $location){
+angular.module('app').controller('loginController', function (Notification, $scope, $http, $rootScope, $location){
 
   $scope.usuario = {};
+
+  $rootScope.usuarioLogado = JSON.parse(window.localStorage.getItem('usuarioLogado'));
+
+  console.log($rootScope.usuarioLogado);
 
     $scope.logar = function(){
       $http.post($rootScope.url+"login/login", $scope.usuario).then(function(response){

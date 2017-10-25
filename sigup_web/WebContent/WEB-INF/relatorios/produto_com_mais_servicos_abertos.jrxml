@@ -13,6 +13,8 @@
 FROM
      `produto` produto INNER JOIN `ordem` ordem ON produto.`idproduto` = ordem.`idproduto`
      INNER JOIN `servico` servico ON ordem.`idordem` = servico.`idordem`
+GROUP BY
+	produto.nome
 ORDER BY
      qtd DESC]]>
 	</queryString>

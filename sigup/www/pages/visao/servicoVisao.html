@@ -10,6 +10,7 @@
                 <div class="panel-heading">
                     <div class="row">
                       <div class="col-xs-9 text-left">
+                        <div style="float: right;"><button class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-click="buscarContasReceber()" ng-show="servico.status == 'FINALIZADO' && servico.ordem.tipoOrdem == 'PROJETO'">Ver Financeiro</button></div>
                           <div>Titulo: {{servico.titulo}}</div>
                           <div>Descricao: {{servico.descricao}}</div>
                       </div>
@@ -42,6 +43,12 @@
                             <div>Status: {{tarefa.status}}</div>
                             <div>Custo: {{tarefa.custo}}</div>
                         </div>
+                        <div class="col-xs-9 text-right" ng-hide="tarefa.itemTarefa == undefined">
+                          <div ng-repeat="itemTarefa in tarefa.itemTarefa">
+                            <div>Item: {{itemTarefa.item.nome}}</div>
+                            <div>Quantidade: {{itemTarefa.quantidade}}</div>
+                          </div>
+                        </div>
                         <div class="col-xs-9 text-center">
                           <div>
                             <select class="form-control" ng-model="tarefa.responsavel.id" ng-options="colaborador.id as colaborador.nome for colaborador in colaboradores" ng-change="editar(tarefa)" ng-disabled="servico.status == 'FINALIZADO'">
@@ -59,6 +66,68 @@
                     </div>
                 </div>
             </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Conta a Receber</h4>
+              </div>
+              <div class="modal-body">
+                <div>Produto: {{contasReceber.servico.ordem.produto.nome}}.</div>
+                <div>Usuario que abriu a ordem: {{contasReceber.servico.ordem.usuario.login}}.</div>
+                <div>Data de Lançamento: {{contasReceber.dataLancamento}}.</div>
+                <div>Data de Vencimento: {{contasReceber.dataVencimento}}.</div>
+                <br>
+                <table class="table">
+                <thead>
+                  <tr>
+                    <th>Tarefa</th>
+                    <th>Custo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="obj in tarefas">
+                    <th scope="row">{{obj.titulo}}</td>
+                    <td>{{obj.custo}}</td>
+                    <td>
+                      <div class="button-bar">
+                        <button ng-show="obj.itemTarefa != undefined && obj.itemTarefa.length > 0" class="btn btn-default" ng-click="selecionarTarefa(obj)">Ver Itens da Tarefa</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table" ng-hide="tarefaSelec">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Quantidade</th>
+                  <th>Valor</th>
+                  <th>Valor Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="obj in tarefaSelecionada.itemTarefa">
+                  <th scope="row">{{obj.item.nome}}</td>
+                    <td>{{obj.quantidade}}</td>
+                    <td>{{obj.item.valor}}</td>
+                    <td>{{obj.item.valor * obj.quantidade}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="titulo">Valor total a receber: {{contasReceber.valor}}</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              </div>
+          </div>
+          <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
   </div>
 </div>
 <!-- /#page-wrapper -->

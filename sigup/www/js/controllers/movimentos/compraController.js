@@ -50,9 +50,11 @@ $scope.listarCompras();
   }
 
   $scope.adicionarPeca = function(){
+    console.log($scope.pecaCompra);
+    console.log($scope.compra.pecaCompra);
     if($scope.pecaCompra.quantidade != undefined && $scope.pecaCompra.peca != undefined){
       $scope.compra.pecaCompra.push($scope.pecaCompra);
-      $scope.pecaCompra = undefined;
+      $scope.pecaCompra = {};
     }
   }
 
@@ -62,6 +64,8 @@ $scope.listarCompras();
 
   $scope.cancelar = function(){
     $scope.compra = {};
+    $scope.compra.pecaCompra = [];
+    $scope.pecaCompra = {};
     $scope.form = true;
     $scope.click = false;
   }

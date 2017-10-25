@@ -8,21 +8,21 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     COUNT(DISTINCT idcolaborador) as 'Número de Colaboradores', produto.nome, produto.idproduto
+     produto.nome, produto.idproduto, COUNT(DISTINCT idcolaborador) as 'Número de Colaboradores'
 FROM
      `colaborador` colaborador INNER JOIN `tarefa` tarefa ON colaborador.`idcolaborador` = tarefa.`idresponsavel`
      INNER JOIN `servico` servico ON tarefa.`idservico` = servico.`idservico`
      INNER JOIN `ordem` ordem ON servico.`idordem` = ordem.`idordem`
      INNER JOIN `produto` produto ON ordem.`idproduto` = produto.`idproduto`
-     WHERE tarefa.status = 'FINALIZADO' order by 'Número de Colaboradores' DESC]]>
+     WHERE tarefa.status = 'FINALIZADO' GROUP BY produto.nome order by 'Número de Colaboradores' DESC]]>
 	</queryString>
-	<field name="Número de Colaboradores" class="java.lang.Long"/>
 	<field name="nome" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="idproduto" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="Número de Colaboradores" class="java.lang.Long"/>
 	<background>
 		<band/>
 	</background>
@@ -93,12 +93,12 @@ FROM
 		</band>
 		<band height="52">
 			<subreport>
-				<reportElement x="0" y="0" width="554" height="52" uuid="39935b3f-f9fd-4042-b20d-b925488ff699"/>
+				<reportElement x="1" y="0" width="553" height="52" uuid="5157465c-48a0-497f-89ea-bfac85957004"/>
 				<subreportParameter name="idproduto">
 					<subreportParameterExpression><![CDATA[$F{idproduto}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "produto_com_mais_colaboradores_subreport1.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["C:\\Unipar\\Estágio 1\\Projetos\\sigup_web\\WebContent\\WEB-INF\\relatorios\\produto_com_mais_colaboradores_subreport1.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
